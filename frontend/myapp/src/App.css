@@ -1,4 +1,4 @@
-.App {
+/* /* .App {
   text-align: center;
 }
 
@@ -35,4 +35,81 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body{
+font-family:Arial;
+background:#f4fff4;
+margin:0;
+}
+
+.home{
+padding:20px;
+text-align:center;
+color:white;
+
+}
+
+.productGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+margin-top:30px;
+body{
+  font-family: Arial;
+  background:#f4fff4;
+  margin:0;
+}
+}
+/* html, body, #root {
+  height: 100%;
+  margin: 0;
+} */
+/* body, html, #root{
+  margin:0;
+  padding:0;
+  width:100%;
+  overflow-x:hidden;
+}
+.app-container{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+.routes-content{
+  flex:1;
+    padding: 0px;
+} */ 
+ /*body{
+  margin:0;
+  font-family:Arial;
+  background:#f4fff4;
+}
+
+.home{
+  padding:40px;
+  text-align:center;
+} */
+ html, body, #root{
+  height:100%;
+  margin:0;
+}
+
+body{
+  font-family: Arial;
+  background:#f4fff4;
+}
+
+/* Main layout */
+.app-container{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* Route content grows */
+.page-content{
+  flex:1;
+
 }

@@ -1,0 +1,14 @@
+/* .footer{
+margin-top:40px;
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:20px;
+} */
+ .footer{
+  background:#2e7d32;
+  color:white;
+  text-align:center;
+  padding:20px;
+  width:100%;
+}
