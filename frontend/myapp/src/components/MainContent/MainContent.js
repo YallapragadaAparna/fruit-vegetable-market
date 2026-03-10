@@ -53,7 +53,11 @@ function MainContent() {
       {showLogin && (
         <div className="overlay">
           <div className="modal">
-            <Login />
+            <Login openRegister={() => {
+                setShowLogin(false);
+          setShowRegister(true);
+        }} 
+      />
             <button
               className="close-btn"
               onClick={() => setShowLogin(false)}
@@ -67,7 +71,11 @@ function MainContent() {
       {showRegister && (
         <div className="overlay">
           <div className="modal">
-            <Register />
+            <Register  openLogin={() => {
+          setShowRegister(false);
+          setShowLogin(true);
+        }}
+      />
             <button className="close-btn" onClick={() => setShowRegister(false)}>X</button>
           </div>
         </div>

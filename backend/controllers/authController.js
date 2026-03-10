@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // REGISTER USER
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -20,7 +20,9 @@ exports.registerUser = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      // role: role || "user"
+    role: role ? role : "user"   
     });
 
     res.status(201).json({
@@ -28,7 +30,9 @@ exports.registerUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+   role: user.role
+
       }
     });
 
@@ -55,6 +59,9 @@ exports.loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
+      // ✅ Save login time
+    user.lastLogin = new Date();
+    await user.save();
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
@@ -67,7 +74,8 @@ exports.loginUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role  
       }
     });
 

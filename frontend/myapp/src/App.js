@@ -193,12 +193,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //import Footer from "./components/Footer/Footer";
 import MainContent from "./components/MainContent/MainContent";
 
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Admin from "./pages/Admin";
+//import Home from "./pages/Home";
+import Cart from "./components/cart/Cart";
+//import Admin from "./pages/Admin";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-
+import Dashboard from "./components/Dashboard/Dashboard";
+import AdminProducts from "./components/AdminProducts/AdminProducts";
 import "./App.css";
 
 function App() {
@@ -208,15 +209,16 @@ function App() {
 
         {/* <Navbar /> */}
 
-        <MainContent />
+        {/* <MainContent /> */}
 
         {/* <div className="page-content"> */}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<MainContent />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/cart" element={<Cart />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/adminproducts" element={<AdminProducts />} />
           </Routes>
         </div>
 

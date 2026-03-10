@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
+import api from "../../services/api";
 import "./Register.css";
 
-function Register(){
+function Register({ openLogin }){
 
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
@@ -14,15 +15,14 @@ function Register(){
 
     try{
 
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+      const res = await api.post( "/auth/register",
         {
           name:name,
           email:email,
           password:password
         }
       );
-
+       setMessage(res.data.message);
       setMessage("Registration Successful");
 
       setName("");
@@ -71,7 +71,13 @@ function Register(){
         <button type="submit">Register</button>
 
         <p className="message">{message}</p>
-
+       
+        <p className="login-text">
+        Already have an account?
+        <span className="login-link" onClick={openLogin}>
+          Login
+        </span>
+      </p>
       </form>
 
     </div>

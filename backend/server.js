@@ -26,7 +26,7 @@ const cors = require("cors");
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-
+const productRoutes = require("./routes/productRoutes");
 const app = express();
 
 connectDB();
@@ -35,6 +35,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/uploads",express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("Fruit Market API Running");

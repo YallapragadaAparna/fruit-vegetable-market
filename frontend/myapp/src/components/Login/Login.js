@@ -1,36 +1,43 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import api  from "../../services/api";
+//import axios from "axios";
 import "./Login.css";
 
-function Login() {
+function Login({ openRegister }) {
 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [message,setMessage] = useState("");
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    try{
-
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+    try {
+    const res = await api.post("/auth/login",
         {
-          email:email,
-          password:password
+          email: email,
+          password: password
         }
       );
 
-      localStorage.setItem("token",res.data.token);
-
+      localStorage.setItem("token", res.data.token);
+      console.log(res.data.user);  
       setMessage("Login Successful");
+      
+      // get role from response
+      const role = res.data.user.role;
 
-      console.log(res.data);
+      // navigate based on role
+      if (role === "admin") {
+        navigate("/adminproducts");
+      } else {
+        navigate("/dashboard");
+      }
 
-    }catch(err){
-
+    } catch (err) {
       setMessage("Invalid Email or Password");
-
     }
   };
 
@@ -43,29 +50,39 @@ function Login() {
         <h2>Login</h2>
 
         <input
-        type="email"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e)=>setEmail(e.target.value)}
-        required
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
-        type="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={(e)=>setPassword(e.target.value)}
-        required
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
+
+        <p className="forgot-password">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </p>
 
         <button type="submit">Login</button>
 
         <p className="message">{message}</p>
 
+        <p className="register-text">
+          Don't have an account?
+          <span className="register-link" onClick={openRegister}>
+            Register
+          </span>
+        </p>
+
       </form>
 
     </div>
-
   );
 }
 
