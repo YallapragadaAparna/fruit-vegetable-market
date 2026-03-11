@@ -5,6 +5,7 @@ body{
   margin:0;
   font-family: Arial, Helvetica, sans-serif;
   background:#f5f7f6;
+  overflow-y: auto;
 }
 
 
@@ -17,7 +18,7 @@ body{
   background:#2e7d32;
   padding:15px 40px;
   color:white;
-  position:sticky;
+  /* position:sticky; */
   top:0;
   z-index:100;
 }
@@ -244,7 +245,7 @@ body{
 
 .cart-btn{
   margin-top:14px;
-  background:#ff3b30;
+  background:#2e7d32;
   border:none;
   color:white;
   padding:10px 18px;
@@ -256,6 +257,38 @@ body{
 }
 
 .cart-btn:hover{
-  background:#d62c24;
+  background:#2e7d32;
   transform:scale(1.05);
+}
+.stock-badge{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin:8px 0;
+}
+
+.stock-badge.full{
+background:#e8f5e9;
+color:#2e7d32;
+}
+
+.stock-badge.limited{
+background:#fff3cd;
+color:#856404;
+}
+
+.stock-badge.out-of-stock{
+background:#ffebee;
+color:#c62828;
+}
+
+.disabled-btn{
+background:#bdbdbd !important;
+cursor:not-allowed;
+}
+
+.disabled-btn:hover{
+transform:none;
 }

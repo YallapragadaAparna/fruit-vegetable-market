@@ -73,3 +73,45 @@ exports.deleteProducts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// UPDATE PRODUCT
+exports.updateProduct = async (req, res) => {
+  try {
+
+    const { name, price, category, stock } = req.body;
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // update fields
+    product.name = name || product.name;
+    product.price = price || product.price;
+    product.category = category || product.category;
+    product.stock = stock || product.stock;
+
+    // update image if new one uploaded
+    if (req.file) {
+
+      const fs = require("fs");
+      const path = require("path");
+
+      if (product.image) {
+        const oldImage = path.join(__dirname, "..", product.image.replace(/^\/+/, ""));
+        if (fs.existsSync(oldImage)) {
+          fs.unlinkSync(oldImage);
+        }
+      }
+
+      product.image = "/uploads/" + req.file.filename;
+    }
+
+    const updatedProduct = await product.save();
+
+    res.json(updatedProduct);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

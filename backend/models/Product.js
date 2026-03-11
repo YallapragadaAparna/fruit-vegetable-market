@@ -20,10 +20,10 @@ const productSchema = new mongoose.Schema({
         type:String
     },
      stock: {
-    type: Number
-  }
+  type: String,
+  enum: ["Full", "Limited", "Out of Stock"]
 
-
+     }
 })
 
 module.exports = mongoose.model("Product",productSchema)

@@ -1,4 +1,4 @@
-.admin-products {
+/* .admin-products {
   padding: 40px;
   text-align: center;
 }
@@ -59,7 +59,7 @@ padding:8px 15px;
 border-radius:5px;
 cursor:pointer;
 }
-/* FORM */
+/* FORM *
 
 .product-form{
 display:flex;
@@ -70,7 +70,7 @@ flex-wrap:wrap;
 margin-bottom:40px;
 }
 
-/* INPUT BOXES */
+/* INPUT BOXES *
 
 .product-form input{
 padding:10px 12px;
@@ -81,7 +81,7 @@ font-size:14px;
 background:white;
 }
 
-/* FILE INPUT BOX */
+/* FILE INPUT BOX *
 
 .product-form input[type="file"]{
 padding:7px;
@@ -92,7 +92,7 @@ background:white;
 cursor:pointer;
 }
 
-/* ADD BUTTON */
+/* ADD BUTTON *
 
 .product-form button{
 padding:10px 18px;
@@ -106,4 +106,354 @@ font-weight:500;
 
 .product-form button:hover{
 background:#086408;
+}
+/* Stock dropdown *
+select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+}
+/* Stock badge *
+.stock-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Full stock *
+.stock-status.full {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Limited stock *
+.stock-status.limited {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Out of stock *
+.stock-status.outofstock {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.product-form input,
+.product-form select {
+  padding: 10px;
+  width: 180px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.product-form button {
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.product-card {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.product-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.update-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+.stock-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.stock-status.full {
+  background: #d4edda;
+  color: #155724;
+}
+
+.stock-status.limited {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.stock-status.outofstock {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.preview-box {
+  position: relative;
+}
+
+.preview-box img {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+}
+
+.remove-image {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px 6px;
+} */
+ /* FORM */
+
+.product-form{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:40px;
+}
+
+.product-form input,
+.product-form select{
+width:180px;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+/* IMAGE UPLOAD */
+/* 
+.image-upload{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+} */
+
+/* .preview-box{
+position:relative;
+}
+
+.preview-box img{
+width:50px;
+height:50px;
+border-radius:6px;
+object-fit:cover;
+} */
+/* 
+.remove-image{
+position:absolute;
+top:-6px;
+right:-6px;
+background:red;
+color:white;
+border-radius:50%;
+font-size:12px;
+padding:2px 6px;
+cursor:pointer;
+} */
+
+/* PRODUCT LIST */
+
+.product-list{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+/* CARD */
+
+.product-card{
+width:220px;
+background:#f4f4f4;
+padding:20px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+display:flex;
+  flex-direction:column;
+  align-items:center;
+
+}
+
+.product-card img{
+width:120px;
+height:120px;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+/* PRICE */
+
+.price{
+font-size:14px;
+color:#444;
+margin-bottom:5px;
+}
+
+/* CATEGORY BADGE */
+
+.category{
+display:block;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+/* margin-bottom:5px; */
+margin:8px auto; 
+font-weight: bold;
+text-align: center;
+ width:fit-content;
+}
+
+.category.fruit{
+background:#ffe4e1;
+color:#c62828;
+}
+
+.category.vegetable{
+background:#e8f5e9;
+color:#2e7d32;
+}
+
+/* STOCK BADGE */
+
+.stock-status{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.stock-status.full{
+background:#d4edda;
+color:#155724;
+}
+
+.stock-status.limited{
+background:#fff3cd;
+color:#856404;
+}
+
+.stock-status.outofstock{
+background:#f8d7da;
+color:#721c24;
+}
+
+/* BUTTONS */
+
+.card-buttons{
+margin-top:10px;
+}
+
+.delete-btn{
+background:#e53935;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:5px;
+margin-right:5px;
+cursor:pointer;
+}
+
+.update-btn{
+background:#1976d2;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:5px;
+cursor:pointer;
+}
+/* FORM BUTTON */
+
+.product-form button{
+  width:200px;
+  height:42px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(135deg,#28a745,#1e7e34);
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* HOVER EFFECT */
+
+.product-form button:hover{
+  background:linear-gradient(135deg,#218838,#19692c);
+  transform:translateY(-2px);
+  box-shadow:0 5px 12px rgba(0,0,0,0.2);
+}
+
+/* UPDATE MODE COLOR */
+
+.product-form button.update-mode{
+  background:linear-gradient(135deg,#007bff,#0056b3);
+}
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  margin-bottom:30px;
+}
+
+.logout-btn{
+  background:#e53935;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:500;
+  margin-right: 50px;
+}
+
+.logout-btn:hover{
+  background:#c62828;
+}
+.admin-products{
+  padding:30px 60px;
 }

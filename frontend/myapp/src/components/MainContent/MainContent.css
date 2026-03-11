@@ -2,14 +2,17 @@
 .navbar {
   width: 100%;
   background-color:#2e7d32; /* green header */
-  padding: 25px 30px;
+  /* padding: 0px 30px; */
+  padding:0px 40px; 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   position: sticky; /* stays on top when scrolling */
   top: 0;
+    overflow:hidden;
   align-items: center;
   z-index: 10;
+  color:white;
   
 }
 /* 
@@ -19,10 +22,12 @@
   margin-left: 20px;
   font-weight: bold;
 } */
+ 
+
 
 .navLinks{
   display:flex;
-  justify-content:flex-end; /* keeps menu on right side */
+  /* justify-content:flex-end; keeps menu on right side */
   align-items:center;
   gap:30px; /* space between Home Login Register Admin */
 }

@@ -52,7 +52,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
-const { addProducts, getProducts, deleteProducts } =
+const { addProducts, getProducts, deleteProducts , updateProduct } =
 require("../controllers/productController");
 const uploadDir = "uploads/";
 
@@ -78,5 +78,6 @@ router.get("/",getProducts);
 router.post("/",upload.single("image"),addProducts);
 
 router.delete("/:id",deleteProducts);
+router.put("/:id", upload.single("image"), updateProduct);
 
 module.exports = router;

@@ -28,6 +28,7 @@ function MainContent() {
       {/* Navbar */}
       <div className="navbar">
         <div className="navLinks">
+          <h3>Fresh Cart(Fruits & Vegetables)</h3>
           <a href="/">Home</a>
           <button onClick={() => setShowLogin(true)}>Login</button>
            <button onClick={() => {
