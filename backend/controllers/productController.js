@@ -1,78 +1,6 @@
-// const Product = require("../models/Product");
-
-
-// // GET all products
-// exports.getProducts = async (req, res) => {
-
-//   try {
-
-//     const products = await Product.find();
-//     res.json(products);
-
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-
-// };
-
-
-// // GET single product
-// exports.getProductById = async (req, res) => {
-
-//   try {
-
-//     const product = await Product.findById(req.params.id);
-
-//     if (!product) {
-//       return res.status(404).json({ message: "Product not found" });
-//     }
-
-//     res.json(product);
-
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-
-// };
-
-
-// // ADD product
-// exports.addProduct = async (req, res) => {
-
-//   try {
-
-//     const product = new Product(req.body);
-
-//     const savedProduct = await product.save();
-
-//     res.json(savedProduct);
-
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-
-// };
-
-
-// // DELETE product
-// exports.deleteProduct = async (req, res) => {
-
-//   try {
-
-//     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-
-//     if (!deletedProduct) {
-//       return res.status(404).json({ message: "Product not found" });
-//     }
-
-//     res.json({ message: "Product deleted successfully" });
-
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-
-// };
 const Product = require("../models/Product");
+const fs = require("fs");
+const path = require("path");
 
 // ADD PRODUCT
 exports.addProducts = async (req, res) => {
@@ -119,6 +47,23 @@ exports.getProducts = async (req, res) => {
 // DELETE PRODUCT
 exports.deleteProducts = async (req, res) => {
   try {
+       // find product first
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // delete image from uploads folder
+    if (product.image) {
+
+      const imagePath = path.join(__dirname, "..", product.image);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+
+    }
 
     await Product.findByIdAndDelete(req.params.id);
 
