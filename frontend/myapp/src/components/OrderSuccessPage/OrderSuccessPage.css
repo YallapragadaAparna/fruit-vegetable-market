@@ -1,0 +1,23 @@
+.success-container{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#f5f5f5;
+}
+
+.success-container h2{
+  color:#2e7d32;
+  margin-bottom:10px;
+}
+
+.success-container button{
+  margin-top:20px;
+  padding:12px 20px;
+  border:none;
+  background:#2e7d32;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}

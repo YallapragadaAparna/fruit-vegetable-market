@@ -1,0 +1,44 @@
+.orders-container{
+    padding:40px;
+}
+
+.orders-container h2{
+    margin-bottom:20px;
+}
+
+.order-card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.view-btn{
+    margin-top:10px;
+    padding:8px 14px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.view-btn:hover{
+    background:#1b5e20;
+}
+
+.items-section{
+    margin-top:15px;
+    background:#f9f9f9;
+    padding:10px;
+    border-radius:6px;
+}
+
+.items-section ul{
+    padding-left:20px;
+}
+
+.items-section li{
+    margin-bottom:5px;
+}

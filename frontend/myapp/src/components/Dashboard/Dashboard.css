@@ -3,11 +3,14 @@
 
 body{
   margin:0;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+   font-family: 'Poppins', sans-serif;
   background:#f5f7f6;
   overflow-y: auto;
 }
-
+*{
+  transition:0.2s ease;
+}
 
 /* HEADER */
 
@@ -21,6 +24,7 @@ body{
   /* position:sticky; */
   top:0;
   z-index:100;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
 .logo{
@@ -38,12 +42,12 @@ body{
 }
 
 .search-bar{
-  width:420px;
+  width:400px;
   padding:10px 15px;
-  border-radius:6px;
-  border:none;
+  border-radius:25px;
+  border:1px solid #ddd;
   outline:none;
-  font-size:15px;
+  /* font-size:15px; */
 }
 
 
@@ -119,7 +123,7 @@ body{
 
 /* PRODUCT CARD */
 
-.product-card{
+/* .product-card{
   background:white;
   border-radius:16px;
   padding:22px;
@@ -132,14 +136,26 @@ body{
 .product-card:hover{
   transform:translateY(-8px);
   box-shadow:0 15px 35px rgba(0,0,0,0.18);
+} */
+ .product-card{
+  background:#ffffff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:0.3s ease;
+}
+
+.product-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
 }
 
 
 /* PRODUCT IMAGE */
 
 .product-image{
-  width:150px;
-  height:150px;
+  width:130px;
+  height:130px;
   object-fit:contain;
   margin-bottom:10px;
 }
@@ -205,20 +221,22 @@ body{
 /* + - BUTTONS */
 
 .quantity-controls button{
-  background:#ff3b30;
+  /* background:#ff3b30; */
+    background:#ff4d4d;
   border:none;
   color:white;
   font-size:18px;
-  width:34px;
-  height:34px;
-  border-radius:8px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
   cursor:pointer;
   transition:0.2s;
 }
 
 .quantity-controls button:hover{
-  background:#d62c24;
-  transform:scale(1.05);
+  /* background:#d62c24;
+  transform:scale(1.05); */
+    background:#e63e3e;
 }
 
 
@@ -244,7 +262,7 @@ body{
 /* ADD TO CART BUTTON */
 
 .cart-btn{
-  margin-top:14px;
+  /* margin-top:14px;
   background:#2e7d32;
   border:none;
   color:white;
@@ -253,13 +271,22 @@ body{
   border-radius:10px;
   cursor:pointer;
   transition:0.3s;
-  width:100%;
+  width:100%; */
+   width:100%;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
 }
 
 .cart-btn:hover{
-  background:#2e7d32;
-  transform:scale(1.05);
-}
+  /* background:#2e7d32;*/
+  transform:scale(1.02);
+  background:#1b5e20;
+} 
 .stock-badge{
 display:inline-block;
 padding:6px 12px;
@@ -291,4 +318,21 @@ cursor:not-allowed;
 
 .disabled-btn:hover{
 transform:none;
+}
+/* CART BADGE */
+
+.cart-link{
+position:relative;
+}
+
+.cart-count{
+position:absolute;
+top:-8px;
+right:-12px;
+background:#ff3b30;
+color:white;
+font-size:12px;
+font-weight:bold;
+padding:3px 6px;
+border-radius:50%;
 }

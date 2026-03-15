@@ -1,24 +1,14 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const orderController = require("../controllers/orderController");
 
-const Order = require("../models/Order")
+// Place order
+router.post("/place-order", orderController.placeOrder);
 
-router.post("/",async(req,res)=>{
+// Get orders of user
+router.get("/my-orders/:userId", orderController.getMyOrders);
 
-const order = new Order(req.body)
+// Get single order
+router.get("/:id", orderController.getOrderById);
 
-const saved = await order.save()
-
-res.json(saved)
-
-})
-
-router.get("/",async(req,res)=>{
-
-const orders = await Order.find()
-
-res.json(orders)
-
-})
-
-module.exports = router
+module.exports = router;

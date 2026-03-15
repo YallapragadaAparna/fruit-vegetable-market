@@ -303,7 +303,7 @@ flex-wrap:wrap;
 
 .product-card{
 width:220px;
-background:#f4f4f4;
+background:#ffffff;;
 padding:20px;
 border-radius:12px;
 text-align:center;
@@ -315,10 +315,10 @@ display:flex;
 }
 
 .product-card img{
-width:120px;
-height:120px;
-object-fit:cover;
-margin-bottom:10px;
+width:170px;
+height:170px;
+object-fit:contain;
+/*margin-bottom:10px; */
 }
 
 /* PRICE */
@@ -331,21 +331,32 @@ margin-bottom:5px;
 
 /* CATEGORY BADGE */
 
-.category{
+/* .category{
 display:block;
 padding:6px 14px;
 border-radius:20px;
 font-size:13px;
-/* margin-bottom:5px; */
+/* margin-bottom:5px; *
 margin:8px auto; 
 font-weight: bold;
 text-align: center;
  width:fit-content;
+} */
+.category{
+padding:5px 10px;
+border-radius:15px;
+font-size:13px;
+font-weight:500;
 }
 
-.category.fruit{
+
+/* .category.fruit{
 background:#ffe4e1;
 color:#c62828;
+} */
+ .category.fruit{
+background:#ffe0e0;
+color:#d32f2f;
 }
 
 .category.vegetable{

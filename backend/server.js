@@ -28,6 +28,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const app = express();
 
 connectDB();
@@ -39,6 +40,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/uploads",express.static("uploads"));
 app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 app.get("/", (req, res) => {
   res.send("Fruit Market API Running");
 });

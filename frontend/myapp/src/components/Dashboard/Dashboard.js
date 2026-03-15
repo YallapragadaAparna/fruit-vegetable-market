@@ -1,15 +1,22 @@
 // import React, { useEffect, useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
-// import api,{IMAGE_URL} from "../../services/api";
+// import api, { IMAGE_URL } from "../../services/api";
 // import "./Dashboard.css";
 
 // function Dashboard() {
 
 //   const navigate = useNavigate();
 
+//   const [searchTerm, setSearchTerm] = useState("");
 //   const [products, setProducts] = useState([]);
 //   const [weights, setWeights] = useState({});
 //   const [counts, setCounts] = useState({});
+//   const [cartCount, setCartCount] = useState(0);
+
+//   // SEARCH FILTER
+//   const filteredProducts = products.filter((product) =>
+//     product.name.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
 
 //   // Logout
 //   const handleLogout = () => {
@@ -63,59 +70,56 @@
 
 //   // Decrease quantity
 //   const decreaseQty = (id) => {
-
 //     if (counts[id] > 1) {
 //       setCounts({
 //         ...counts,
 //         [id]: counts[id] - 1
 //       });
 //     }
-
 //   };
 
 //   // Calculate price based on weight
 //   const getPriceByWeight = (basePrice, weight) => {
 
 //     if (weight === "250g") return basePrice;
-
 //     if (weight === "500g") return basePrice * 2;
-
 //     if (weight === "1kg") return basePrice * 4;
 
 //     return basePrice;
-
 //   };
 
 //   // Add to cart
-//   const addToCart = (product) => {
+//   const addToCart = async (product) => {
 
-//     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+//     if (product.stock === "Out of Stock") {
+//       alert("This product is out of stock");
+//       return;
+//     }
 
 //     const weight = weights[product._id];
 //     const quantity = counts[product._id];
-
 //     const price = getPriceByWeight(product.price, weight);
 
-//     const existingProduct = cart.find(
-//       (item) => item._id === product._id && item.weight === weight
-//     );
+//     try {
 
-//     if (existingProduct) {
-//       existingProduct.quantity += quantity;
-//     } else {
-//       cart.push({
-//         ...product,
+//       await api.post("/cart/add", {
+//         productId: product._id,
+//         name: product.name,
+//         image: product.image,
 //         weight,
 //         quantity,
 //         price
 //       });
+
+//       setCartCount(cartCount + quantity);
+
+//       alert("Product added to cart");
+
+//     } catch (error) {
+
+//       console.log(error);
+
 //     }
-
-//     localStorage.setItem("cart", JSON.stringify(cart));
-
-//     alert("Product added to cart");
-
-//   navigate("/cart");
 
 //   };
 
@@ -133,6 +137,8 @@
 //             type="text"
 //             placeholder="🔍 Search fruits or vegetables..."
 //             className="search-bar"
+//             value={searchTerm}
+//             onChange={(e) => setSearchTerm(e.target.value)}
 //           />
 //         </div>
 
@@ -142,7 +148,14 @@
 
 //           <li><Link to="/vegetables">Vegetables</Link></li>
 
-//           <li><Link to="/cart">Cart</Link></li>
+//           {/* CART WITH BADGE */}
+
+//           <li className="cart-link">
+//             <Link to="/cartpage">🛒 Cart</Link>
+//             {cartCount > 0 && (
+//               <span className="cart-count">{cartCount}</span>
+//             )}
+//           </li>
 
 //           <li className="profile-icon">👤</li>
 
@@ -165,85 +178,108 @@
 
 //         <div className="product-grid">
 
-//           {products.map((product) => {
+//           {filteredProducts.length === 0 ? (
+//             <p>No products found</p>
+//           ) : (
+//             filteredProducts.map((product) => {
 
-//             const weight = weights[product._id];
+//               const weight = weights[product._id];
+//               const price = getPriceByWeight(product.price, weight);
+//               const quantity = counts[product._id];
 
-//             const price = getPriceByWeight(product.price, weight);
+//               return (
 
-//             const quantity = counts[product._id];
+//                 <div key={product._id} className="product-card">
 
-//             return (
+//                   <img
+//                     src={`${IMAGE_URL}${product.image}`}
+//                     alt={product.name}
+//                     className="product-image"
+//                   />
 
-//               <div key={product._id} className="product-card">
+//                   <h3>{product.name}</h3>
 
-//                 <img
-//                   src={`${IMAGE_URL}${product.image}`}
-//                   alt={product.name}
-//                   className="product-image"
-//                 />
+//                   <p>Price: ₹{price}</p>
 
-//                 <h3>{product.name}</h3>
+//                   <span className={`category ${product.category.toLowerCase()}`}>
+//                     {product.category}
+//                   </span>
 
-//                 <p>Price: ₹{price}</p>
+//                   {/* STOCK BADGE */}
 
-//                 <p>Category: {product.category}</p>
-
-
-//                 {/* WEIGHT SELECT */}
-
-//                 <select
-//                   value={weight}
-//                   onChange={(e) =>
-//                     handleWeightChange(product._id, e.target.value)
-//                   }
-//                 >
-//                   <option value="250g">250g</option>
-//                   <option value="500g">500g</option>
-//                   <option value="1kg">1kg</option>
-//                 </select>
+//                   <span
+//                     className={`stock-badge ${product.stock
+//                       .toLowerCase()
+//                       .replaceAll(" ", "-")}`}
+//                   >
+//                     {product.stock}
+//                   </span>
 
 
-//                 {/* QUANTITY */}
+//                   {/* WEIGHT SELECT */}
 
-//                 <div className="quantity-controls">
+//                   <select
+//                     value={weight}
+//                     onChange={(e) =>
+//                       handleWeightChange(product._id, e.target.value)
+//                     }
+//                   >
+//                     <option value="250g">250g</option>
+//                     <option value="500g">500g</option>
+//                     <option value="1kg">1kg</option>
+//                   </select>
 
-//                   <button onClick={() => decreaseQty(product._id)}>
-//                     -
-//                   </button>
 
-//                   <span>{quantity}</span>
+//                   {/* QUANTITY */}
 
-//                   <button onClick={() => increaseQty(product._id)}>
-//                     +
+//                   <div className="quantity-controls">
+
+//                     <button
+//                       onClick={() => decreaseQty(product._id)}
+//                       disabled={product.stock === "Out of Stock"}
+//                     >
+//                       -
+//                     </button>
+
+//                     <span>{quantity}</span>
+
+//                     <button
+//                       onClick={() => increaseQty(product._id)}
+//                       disabled={product.stock === "Out of Stock"}
+//                     >
+//                       +
+//                     </button>
+
+//                   </div>
+
+
+//                   {/* TOTAL PRICE */}
+
+//                   <p className="total-price">
+//                     Total: ₹{price * quantity}
+//                   </p>
+
+
+//                   {/* ADD TO CART */}
+
+//                   <button
+//                     className={`cart-btn ${
+//                       product.stock === "Out of Stock" ? "disabled-btn" : ""
+//                     }`}
+//                     disabled={product.stock === "Out of Stock"}
+//                     onClick={() => addToCart(product)}
+//                   >
+//                     {product.stock === "Out of Stock"
+//                       ? "Out of Stock"
+//                       : "Add to Cart"}
 //                   </button>
 
 //                 </div>
 
+//               );
 
-//                 {/* TOTAL PRICE */}
-
-//                 <p className="total-price">
-
-//                   Total: ₹{price * quantity}
-
-//                 </p>
-
-
-//                 {/* ADD TO CART */}
-
-//                 <button
-//                   className="cart-btn"
-//                   onClick={() => addToCart(product)}
-//                 >
-//                   Add to Cart
-//                 </button>
-
-//               </div>
-
-//             );
-
-//           })}
+//             })
+//           )}
 
 //         </div>
 
@@ -263,9 +299,16 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [weights, setWeights] = useState({});
   const [counts, setCounts] = useState({});
+  const [cartCount, setCartCount] = useState(0);
+
+  // SEARCH FILTER
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Logout
   const handleLogout = () => {
@@ -275,6 +318,7 @@ function Dashboard() {
 
   // Fetch products
   const fetchProducts = async () => {
+
     try {
 
       const res = await api.get("/products");
@@ -293,12 +337,17 @@ function Dashboard() {
       setCounts(defaultCounts);
 
     } catch (error) {
+
       console.log(error);
+
     }
+
   };
 
   useEffect(() => {
+
     fetchProducts();
+
   }, []);
 
   // Weight change
@@ -339,89 +388,52 @@ function Dashboard() {
   const getPriceByWeight = (basePrice, weight) => {
 
     if (weight === "250g") return basePrice;
-
     if (weight === "500g") return basePrice * 2;
-
     if (weight === "1kg") return basePrice * 4;
 
     return basePrice;
 
   };
 
-  // // Add to cart
-  // const addToCart = (product) => {
-
-  //   if (product.stock === "Out of Stock") {
-  //     alert("This product is out of stock");
-  //     return;
-  //   }
-
-  //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  //   const weight = weights[product._id];
-  //   const quantity = counts[product._id];
-
-  //   const price = getPriceByWeight(product.price, weight);
-
-  //   const existingProduct = cart.find(
-  //     (item) => item._id === product._id && item.weight === weight
-  //   );
-
-  //   if (existingProduct) {
-  //     existingProduct.quantity += quantity;
-  //   } else {
-  //     cart.push({
-  //       ...product,
-  //       weight,
-  //       quantity,
-  //       price
-  //     });
-  //   }
-
-  //   localStorage.setItem("cart", JSON.stringify(cart));
-
-  //   alert("Product added to cart");
-
-  //   navigate("/cart");
   // Add to cart
-    const addToCart = async (product) => {
+  const addToCart = async (product) => {
 
-  if (product.stock === "Out of Stock") {
-    alert("This product is out of stock");
-    return;
-  }
+    if (product.stock === "Out of Stock") {
 
-  const weight = weights[product._id];
-  const quantity = counts[product._id];
+      alert("This product is out of stock");
+      return;
 
-  const price = getPriceByWeight(product.price, weight);
+    }
 
-  try {
+    const weight = weights[product._id];
+    const quantity = counts[product._id];
+    const price = getPriceByWeight(product.price, weight);
 
-    await api.post("/cart/add", {
-      productId: product._id,
-      name: product.name,
-      image: product.image,
-      weight,
-      quantity,
-      price
-    });
+    try {
 
-    alert("Product added to cart");
+      await api.post("/cart/add", {
+        productId: product._id,
+        name: product.name,
+        image: product.image,
+        weight,
+        quantity,
+        price
+      });
 
-    navigate("/cart");
+      setCartCount(cartCount + quantity);
 
-  } catch (error) {
+      alert("Product added to cart");
 
-    console.log(error);
+    } catch (error) {
 
-  }
+      console.log(error);
 
-};
+    }
 
-
+  };
 
   return (
+
     <div>
 
       {/* HEADER */}
@@ -430,28 +442,61 @@ function Dashboard() {
 
         <h2 className="logo">Fresh Cart</h2>
 
+        {/* SEARCH BAR */}
+
         <div className="search-section">
+
           <input
             type="text"
             placeholder="🔍 Search fruits or vegetables..."
             className="search-bar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
+
         </div>
+
+        {/* MENU */}
 
         <ul className="menu">
 
-          <li><Link to="/fruits">Fruits</Link></li>
+          <li>
+            <Link to="/fruits">Fruits</Link>
+          </li>
 
-          <li><Link to="/vegetables">Vegetables</Link></li>
+          <li>
+            <Link to="/vegetables">Vegetables</Link>
+          </li>
 
-          <li><Link to="/cart">Cart</Link></li>
+          {/* MY ORDERS */}
+
+          <li>
+            <Link to="/my-orders">📦 My Orders</Link>
+          </li>
+
+          {/* CART */}
+
+          <li className="cart-link">
+
+            <Link to="/cartpage">🛒 Cart</Link>
+
+            {cartCount > 0 && (
+              <span className="cart-count">{cartCount}</span>
+            )}
+
+          </li>
 
           <li className="profile-icon">👤</li>
 
           <li>
-            <button onClick={handleLogout} className="logout-btn">
+
+            <button
+              onClick={handleLogout}
+              className="logout-btn"
+            >
               Logout
             </button>
+
           </li>
 
         </ul>
@@ -467,116 +512,125 @@ function Dashboard() {
 
         <div className="product-grid">
 
-          {products.map((product) => {
+          {filteredProducts.length === 0 ? (
 
-            const weight = weights[product._id];
+            <p>No products found</p>
 
-            const price = getPriceByWeight(product.price, weight);
+          ) : (
 
-            const quantity = counts[product._id];
+            filteredProducts.map((product) => {
 
-            return (
+              const weight = weights[product._id];
+              const price = getPriceByWeight(product.price, weight);
+              const quantity = counts[product._id];
 
-              <div key={product._id} className="product-card">
+              return (
 
-                <img
-                  src={`${IMAGE_URL}${product.image}`}
-                  alt={product.name}
-                  className="product-image"
-                />
+                <div key={product._id} className="product-card">
 
-                <h3>{product.name}</h3>
+                  <img
+                    src={`${IMAGE_URL}${product.image}`}
+                    alt={product.name}
+                    className="product-image"
+                  />
 
-                <p>Price: ₹{price}</p>
+                  <h3>{product.name}</h3>
 
-                {/* <p>Category: {product.category}</p> */}
-               <span className={`category ${product.category.toLowerCase()}`}>
-               {product.category}
-                     </span>
+                  <p>Price: ₹{price}</p>
 
-                {/* STOCK BADGE */}
+                  <span className={`category ${product.category.toLowerCase()}`}>
+                    {product.category}
+                  </span>
 
-                <span
-                  className={`stock-badge ${product.stock
-                    .toLowerCase()
-                    .replaceAll(" ", "-")}`}
-                >
-                  {product.stock}
-                </span>
+                  {/* STOCK */}
 
-
-                {/* WEIGHT SELECT */}
-
-                <select
-                  value={weight}
-                  onChange={(e) =>
-                    handleWeightChange(product._id, e.target.value)
-                  }
-                >
-                  <option value="250g">250g</option>
-                  <option value="500g">500g</option>
-                  <option value="1kg">1kg</option>
-                </select>
+                  <span
+                    className={`stock-badge ${product.stock
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`}
+                  >
+                    {product.stock}
+                  </span>
 
 
-                {/* QUANTITY */}
+                  {/* WEIGHT SELECT */}
 
-                <div className="quantity-controls">
+                  <select
+                    value={weight}
+                    onChange={(e) =>
+                      handleWeightChange(product._id, e.target.value)
+                    }
+                  >
+
+                    <option value="250g">250g</option>
+                    <option value="500g">500g</option>
+                    <option value="1kg">1kg</option>
+
+                  </select>
+
+
+                  {/* QUANTITY */}
+
+                  <div className="quantity-controls">
+
+                    <button
+                      onClick={() => decreaseQty(product._id)}
+                      disabled={product.stock === "Out of Stock"}
+                    >
+                      -
+                    </button>
+
+                    <span>{quantity}</span>
+
+                    <button
+                      onClick={() => increaseQty(product._id)}
+                      disabled={product.stock === "Out of Stock"}
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+
+                  {/* TOTAL PRICE */}
+
+                  <p className="total-price">
+                    Total: ₹{price * quantity}
+                  </p>
+
+
+                  {/* ADD TO CART */}
 
                   <button
-                    onClick={() => decreaseQty(product._id)}
+                    className={`cart-btn ${
+                      product.stock === "Out of Stock" ? "disabled-btn" : ""
+                    }`}
                     disabled={product.stock === "Out of Stock"}
+                    onClick={() => addToCart(product)}
                   >
-                    -
-                  </button>
 
-                  <span>{quantity}</span>
+                    {product.stock === "Out of Stock"
+                      ? "Out of Stock"
+                      : "Add to Cart"}
 
-                  <button
-                    onClick={() => increaseQty(product._id)}
-                    disabled={product.stock === "Out of Stock"}
-                  >
-                    +
                   </button>
 
                 </div>
 
+              );
 
-                {/* TOTAL PRICE */}
+            })
 
-                <p className="total-price">
-
-                  Total: ₹{price * quantity}
-
-                </p>
-
-
-                {/* ADD TO CART */}
-
-                <button
-                  className={`cart-btn ${
-                    product.stock === "Out of Stock" ? "disabled-btn" : ""
-                  }`}
-                  disabled={product.stock === "Out of Stock"}
-                  onClick={() => addToCart(product)}
-                >
-                  {product.stock === "Out of Stock"
-                    ? "Out of Stock"
-                    : "Add to Cart"}
-                </button>
-
-              </div>
-
-            );
-
-          })}
+          )}
 
         </div>
 
       </div>
 
     </div>
+
   );
+
 }
 
 export default Dashboard;
