@@ -92,8 +92,10 @@ console.log("ORDER DATA:", orderData);
   return (
 
     <div className="checkout-container">
+      
 
       <div className="checkout-card">
+        
 
         <h2>Checkout</h2>
 
@@ -151,8 +153,8 @@ console.log("ORDER DATA:", orderData);
         </form>
 
       </div>
-
-    </div>
+     </div>
+    
 
   );
 
