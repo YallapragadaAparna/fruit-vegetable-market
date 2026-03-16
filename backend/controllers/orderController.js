@@ -6,7 +6,7 @@ const Cart = require("../models/Cart");
 // Place Order
 exports.placeOrder = async (req, res) => {
   try {
-    console.log("REQ BODY:", req.body);
+    //console.log("REQ BODY:", req.body);
     const { userId, items, totalAmount, name, phone, address, city, payment } = req.body;
 
     if (!userId) {
@@ -105,4 +105,25 @@ exports.getOrderById = async (req, res) => {
       message: "Error fetching order",
     });
   }
+};
+// Get All Orders (Admin)
+exports.getAllOrders = async (req, res) => {
+
+  try {
+
+    const orders = await Order.find()
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(orders);
+
+  } catch (error) {
+
+    console.log("Get All Orders Error:", error);
+
+    res.status(500).json({
+      message: "Failed to fetch orders"
+    });
+
+  }
+
 };

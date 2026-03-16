@@ -43,7 +43,9 @@ const orderSchema = new mongoose.Schema({
 
       price: Number,
 
-      quantity: Number
+      quantity: Number,
+       weight: String  
+
     }
   ],
 

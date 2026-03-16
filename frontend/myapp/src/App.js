@@ -10,6 +10,7 @@ import Checkout from "./components/Checkout/Checkout";
 //import Home from "./pages/Home";
 import OrderSuccessPage from "./components/OrderSuccessPage/OrderSuccessPage";
 import CartPage from "./components/CartPage/CartPage";
+import AdminOrders from "./components/admin/AdminOrders";
 //import Admin from "./pages/Admin";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -43,7 +44,7 @@ function App() {
 <Route path="/my-orders" element={<MyOrders />} />
 <Route path="/order-successpage" element={<OrderSuccessPage />} />
 <Route path="/view-order/:id" element={<ViewOrder />} />
-
+<Route path="/admin-orders" element={<AdminOrders />} />
           </Routes>
         </div>
 

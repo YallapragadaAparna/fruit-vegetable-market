@@ -263,6 +263,9 @@ function AdminProducts() {
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>
+        <button onClick={() => navigate("/admin-orders")}>
+View Orders
+</button>
       </div>
 
       {/* PRODUCT FORM */}
@@ -408,6 +411,7 @@ function AdminProducts() {
               >
                 Update
               </button>
+              
 
             </div>
 

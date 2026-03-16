@@ -7,8 +7,10 @@ router.post("/place-order", orderController.placeOrder);
 
 // Get orders of user
 router.get("/my-orders/:userId", orderController.getMyOrders);
-
+// Admin - Get all orders
+router.get("/admin-orders", orderController.getAllOrders);
 // Get single order
 router.get("/:id", orderController.getOrderById);
+
 
 module.exports = router;

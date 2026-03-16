@@ -52,7 +52,8 @@ function Checkout() {
     productId: item.productId,
     name: item.name,
     price: item.price,
-    quantity: item.quantity
+    quantity: item.quantity,
+    weight: item.weight 
   })),
   totalAmount
 };
