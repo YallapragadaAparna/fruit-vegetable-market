@@ -11,6 +11,8 @@ router.get("/my-orders/:userId", orderController.getMyOrders);
 router.get("/admin-orders", orderController.getAllOrders);
 // Get single order
 router.get("/:id", orderController.getOrderById);
+// Admin - Update order status
+//router.post("/admin/order/:id/status", orderController.updateOrderStatus);
 
-
+router.put("/:id/status",  orderController.updateOrderStatus);
 module.exports = router;

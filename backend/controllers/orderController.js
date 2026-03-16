@@ -127,3 +127,55 @@ exports.getAllOrders = async (req, res) => {
   }
 
 };
+// exports.updateOrderStatus = async (req, res) => {
+//   try {
+//     const orderId = req.params.id;
+//     const { status } = req.body;
+
+//     // Only allow valid enum values
+//     if (!["Pending", "Accepted", "Declined"].includes(status)) {
+//       return res.status(400).json({ message: "Invalid status value." });
+//     }
+
+//     const updatedOrder = await Order.findByIdAndUpdate(
+//       orderId,
+//       { status },
+//       { new: true }
+//     );
+
+//     if (!updatedOrder) {
+//       return res.status(404).json({ message: "Order not found." });
+//     }
+
+//     res.json(updatedOrder);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const { status } = req.body;
+
+    // Allow all valid statuses
+    if (!["Pending", "Accepted", "Declined", "Delivered"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value." });
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { status: status },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found." });
+    }
+
+    res.json(updatedOrder);
+
+  } catch (error) {
+    console.error("Update Status Error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
