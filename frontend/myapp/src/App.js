@@ -1,23 +1,19 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-//import Navbar from "./components/Navbar/Navbar";
-//import Footer from "./components/Footer/Footer";
 import MainContent from "./components/MainContent/MainContent";
 import Fruits from "./components/Fruits/Fruits";
 import Vegetables from "./components/Vegetables/Vegetables";
 import Checkout from "./components/Checkout/Checkout";
-//import Home from "./pages/Home";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 import OrderSuccessPage from "./components/OrderSuccessPage/OrderSuccessPage";
 import CartPage from "./components/CartPage/CartPage";
 import AdminOrders from "./components/admin/AdminOrders";
-//import Admin from "./pages/Admin";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AdminProducts from "./components/AdminProducts/AdminProducts";
 import MyOrders from "./components/MyOrders/MyOrders";
-
 import ViewOrder from "./components/ViewOrder/ViewOrder";
 import Profile from "./components/Profile/Profile";
 import "./App.css";
@@ -47,6 +43,8 @@ function App() {
 <Route path="/view-order/:id" element={<ViewOrder />} />
 <Route path="/admin-orders" element={<AdminOrders />} />
 <Route path="/profile" element={<Profile />} />
+<Route path="/forgot-password" element={<ForgotPassword/>} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
         </div>
 

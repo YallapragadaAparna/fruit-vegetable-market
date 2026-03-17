@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import api from "../../services/api";
 import "./Login.css";
 
-function Login({ openRegister }) {
+function Login({ openRegister,openForgot }) {
 
   const navigate = useNavigate();
 
@@ -83,9 +83,14 @@ function Login({ openRegister }) {
           required
         />
 
-        <p className="forgot-password">
+        {/* <p className="forgot-password">
           <Link to="/forgot-password">Forgot Password?</Link>
-        </p>
+        </p> */}
+            <p className="forgot-password">
+  <span onClick={openForgot} style={{ cursor: "pointer" }}>
+    Forgot Password?
+  </span>
+</p>
 
         <button type="submit">Login</button>
 

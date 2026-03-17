@@ -1,3 +1,63 @@
+// const mongoose = require("mongoose");
+
+// const userSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+
+//   email: {
+//     type: String,
+//     required: true,
+//     unique: true
+//   },
+
+//   password: {
+//     type: String,
+//     required: true
+//   },
+
+//   role: {
+//     type: String,
+//     enum: ["user", "admin"],
+//     default: "user"
+//   },
+
+//   lastLogin: {
+//     type: Date
+//   },
+
+//   // ✅ ADD THESE FIELDS (IMPORTANT)
+//   phone: {
+//     type: String,
+//     default: ""
+//   },
+
+//   address: {
+//     type: String,
+//     default: ""
+//   },
+
+//   city: {
+//     type: String,
+//     default: ""
+//   },
+
+//   dob: {
+//     type: Date
+//   },
+
+//   photo: {
+//     type: String,
+//     default: ""
+//   }
+  
+
+// }, { timestamps: true });
+
+
+
+// module.exports = mongoose.model("User", userSchema);
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -27,7 +87,6 @@ const userSchema = new mongoose.Schema({
     type: Date
   },
 
-  // ✅ ADD THESE FIELDS (IMPORTANT)
   phone: {
     type: String,
     default: ""
@@ -50,6 +109,15 @@ const userSchema = new mongoose.Schema({
   photo: {
     type: String,
     default: ""
+  },
+
+  // ✅ 🔥 ADD THESE FOR RESET PASSWORD
+  resetToken: {
+    type: String
+  },
+
+  resetTokenExpire: {
+    type: Date
   }
 
 }, { timestamps: true });
