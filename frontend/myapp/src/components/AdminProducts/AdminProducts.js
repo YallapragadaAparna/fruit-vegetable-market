@@ -1,6 +1,7 @@
 import React, { useState, useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
+
+import api, { IMAGE_URL } from "../../services/api";
 import "./AdminProducts.css";
 
 function AdminProducts() {
@@ -124,47 +125,7 @@ View Orders
           <option value="Vegetable">Vegetable</option>
         </select>
 
-        {/* IMAGE UPLOAD *
-        <div className="image-upload">
-
-          <input
-            type="file"
-            accept="image/jpeg"
-            onChange={(e) => {
-
-              const file = e.target.files[0];
-
-              if (file && file.type !== "image/jpeg") {
-                alert("Only JPG images allowed");
-                return;
-              }
-
-              setImage(file);
-              setPreview(URL.createObjectURL(file));
-
-            }}
-          />
-
-          {preview && (
-            <div className="preview-box">
-
-              <img src={preview} alt="preview" />
-
-              <span
-                className="remove-image"
-                onClick={() => {
-                  setImage(null);
-                  setPreview(null);
-                }}
-              >
-                ✖
-              </span>
-
-            </div>
-          )}
-
-        </div>*/}
-         {/* IMAGE UPLOAD */}
+                {/* IMAGE UPLOAD */}
         <input
           type="file"
            ref={fileInputRef}
@@ -198,7 +159,7 @@ View Orders
           <div key={product._id} className="product-card">
 
             <img
-              src={`http://localhost:5000${product.image}`}
+              src={`${IMAGE_URL}${product.image}`}
               alt={product.name}
             />
 

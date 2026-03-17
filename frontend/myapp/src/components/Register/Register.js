@@ -22,6 +22,8 @@ function Register({ openLogin }){
           password:password
         }
       );
+      localStorage.setItem("name", name);
+localStorage.setItem("email", email);
        setMessage(res.data.message);
       setMessage("Registration Successful");
 

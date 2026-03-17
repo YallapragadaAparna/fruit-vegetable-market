@@ -49,6 +49,7 @@ function ViewOrder() {
         <p><b>Address:</b> {order.address}</p>
         <p><b>City:</b> {order.city}</p>
         <p><b>Payment:</b> {order.payment}</p>
+        <p><b>Delivery Charges:</b> ₹40</p>
 
         <h3>Ordered Items</h3>
 

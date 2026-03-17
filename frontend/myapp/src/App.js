@@ -19,6 +19,7 @@ import AdminProducts from "./components/AdminProducts/AdminProducts";
 import MyOrders from "./components/MyOrders/MyOrders";
 
 import ViewOrder from "./components/ViewOrder/ViewOrder";
+import Profile from "./components/Profile/Profile";
 import "./App.css";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
 <Route path="/order-successpage" element={<OrderSuccessPage />} />
 <Route path="/view-order/:id" element={<ViewOrder />} />
 <Route path="/admin-orders" element={<AdminOrders />} />
+<Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
 

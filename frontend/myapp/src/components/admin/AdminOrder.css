@@ -20,7 +20,9 @@
 /* GRID WRAPPER */
 .orders-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
+  justify-content: center;  
   gap: 30px;
 }
 
@@ -33,6 +35,7 @@
   transition: all 0.3s ease;
   border-left: 6px solid #2e7d32;
   text-align: center;
+   overflow: hidden; 
 }
 
 /* CARD HOVER EFFECT */
@@ -107,6 +110,7 @@
 }
 
 /* TABLE STYLE */
+
 table {
   width: 100%;
   border-collapse: collapse;

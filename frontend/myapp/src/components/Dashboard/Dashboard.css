@@ -82,24 +82,6 @@ body{
   font-size:18px;
 }
 
-
-/* LOGOUT BUTTON */
-
-.logout-btn{
-  background:#e53935;
-  border:none;
-  color:white;
-  padding:7px 14px;
-  border-radius:5px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.logout-btn:hover{
-  background:#c62828;
-}
-
-
 /* PRODUCT SECTION */
 
 .products-section{
@@ -119,24 +101,6 @@ body{
   gap:40px;
   padding-top:20px;
 }
-
-
-/* PRODUCT CARD */
-
-/* .product-card{
-  background:white;
-  border-radius:16px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-  transition:all 0.3s ease;
-  position:relative;
-}
-
-.product-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.18);
-} */
  .product-card{
   background:#ffffff;
   border-radius:12px;
@@ -335,4 +299,60 @@ font-size:12px;
 font-weight:bold;
 padding:3px 6px;
 border-radius:50%;
+}
+/* PROFILE ITEM */
+.profile-item {
+  display: flex;
+  align-items: center;
+}
+
+/* PROFILE IMAGE */
+.nav-profile-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-profile-img:hover {
+  transform: scale(1.1);
+}
+
+/* DEFAULT AVATAR */
+.nav-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: white;
+  color: #2e7d32;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-avatar:hover {
+  transform: scale(1.1);
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+  background: linear-gradient(135deg, #ff4d4d, #d32f2f);
+  border: none;
+  color: white;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  transform: translateY(-2px);
 }
