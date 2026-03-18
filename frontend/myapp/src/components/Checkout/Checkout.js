@@ -142,8 +142,8 @@ console.log("ORDER DATA:", orderData);
             onChange={handleChange}
           >
             <option>Cash on Delivery</option>
-            <option>UPI</option>
-            <option>Card Payment</option>
+            {/* <option>UPI</option>
+            <option>Card Payment</option> */}
           </select>
 
           <button type="submit" className="place-order-btn">
