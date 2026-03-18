@@ -106,7 +106,8 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
   gap: 25px;
 }
 
