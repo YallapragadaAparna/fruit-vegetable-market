@@ -1,0 +1,166 @@
+/* PAGE BACKGROUND */
+
+.checkout-container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding: 20px;
+  background:linear-gradient(135deg,#f3f6f4,#e8efea);
+  font-family:"Segoe UI",sans-serif;
+  overflow:hidden;           /* prevents scroll */
+
+}
+
+/* CARD */
+
+.checkout-card{
+  width:100%;
+  max-width:700px;
+  background:#ffffff;
+  padding:30px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+
+.checkout-card h2{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:30px;
+  color:#1f2937;
+}
+
+/* FORM GRID */
+
+.checkout-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+/* FULL WIDTH FIELD */
+
+.checkout-form textarea,
+.checkout-form select,
+.checkout-form button{
+  grid-column:span 2;
+}
+
+/* INPUTS */
+
+.checkout-form input,
+.checkout-form textarea,
+.checkout-form select{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #e3e3e3;
+  font-size:15px;
+  background:#fafafa;
+  transition:all .25s ease;
+}
+
+/* TEXTAREA */
+
+.checkout-form textarea{
+  height:110px;
+  resize:none;
+}
+
+/* FOCUS */
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.checkout-form select:focus{
+  outline:none;
+  border-color:#2e7d32;
+  background:white;
+  box-shadow:0 0 0 3px rgba(46,125,50,0.15);
+}
+
+/* BUTTON */
+
+.place-order-btn{
+  margin-top:10px;
+  padding:16px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.place-order-btn:hover{
+  background:#1b5e20;
+  transform:translateY(-2px);
+  box-shadow:0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* MOBILE *
+
+@media(max-width:700px){
+
+.checkout-card{
+  padding:30px;
+}
+
+.checkout-form{
+  grid-template-columns:1fr;
+}
+
+.checkout-form textarea,
+.checkout-form select,
+.checkout-form button{
+  grid-column:span 1;
+}
+
+}*/
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .checkout-container {
+    align-items: flex-start; /* ✅ better scroll */
+    padding: 15px;
+  }
+
+  .checkout-card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .checkout-card h2 {
+    font-size: 24px;
+  }
+
+  .checkout-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .checkout-form textarea,
+  .checkout-form select,
+  .checkout-form button {
+    grid-column: span 1;
+  }
+
+  .place-order-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+  .checkout-card {
+    max-width: 750px;
+  }
+}

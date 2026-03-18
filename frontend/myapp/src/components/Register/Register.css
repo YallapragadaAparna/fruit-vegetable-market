@@ -1,0 +1,147 @@
+.register-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 0;
+}
+
+.register-form{
+  width:350px;
+  background:white;
+  padding:40px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.register-form h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#2e7d32;
+}
+
+.register-form input{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  box-sizing:border-box;
+}
+
+.register-form button{
+  width:100%;
+  padding:12px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.register-form button:hover{
+  background:#256628;
+}
+
+.message{
+  text-align:center;
+  margin-top:10px;
+  color:red;
+}
+.login-text{
+margin-top:15px;
+font-size:14px;
+text-align:center;
+}
+
+.login-link{
+color:#2e7d32;
+cursor:pointer;
+font-weight:500;
+margin-left:5px;
+}
+
+.login-link:hover{
+text-decoration:underline;
+}
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+  .register-form {
+    padding: 25px 20px;
+  }
+
+  .register-form h2 {
+    font-size: 20px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .register-container {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .register-form {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .register-form h2 {
+    font-size: 18px;
+  }
+
+  .register-form input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .register-form button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-text {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+
+  .register-form {
+    max-width: 420px;
+    padding: 40px;
+  }
+}
