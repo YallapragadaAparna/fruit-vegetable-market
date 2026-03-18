@@ -312,7 +312,7 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     // ✅ USE DEPLOYED FRONTEND URL
-    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetLink = `https://fruit-vegetable-market.onrender.com/reset-password/${resetToken}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
