@@ -182,7 +182,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
-// ✅ COMMON EMAIL TRANSPORTER (reuse)
+// ✅ UPDATED TRANSPORTER (IPv4 FIX + TIMEOUT)
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -191,6 +191,10 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   },
+  family: 4, // ⭐ FORCE IPv4 (fix for Render issue)
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
   tls: {
     rejectUnauthorized: false
   }
@@ -217,23 +221,21 @@ exports.registerUser = async (req, res) => {
       role: role ? role : "user"
     });
 
-    // ✅ SEND EMAIL (SAFE)
-    try {
-      transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Registration Successful 🎉",
-        text: `Hello ${name},
+    // ✅ NON-BLOCKING EMAIL
+    transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Registration Successful 🎉",
+      text: `Hello ${name},
 
 This is from FreshCart (Online Fruits & Vegetables Store)
 
 Your registration was successful!
 
 Thank you for joining us.`
-      });
-    } catch (err) {
-      console.log("Email failed:", err.message);
-    }
+    })
+    .then(() => console.log("Registration email sent"))
+    .catch(err => console.log("Email failed:", err.message));
 
     res.status(201).json({
       message: "User registered successfully",
@@ -304,14 +306,13 @@ exports.forgotPassword = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // ✅ generate token
     const resetToken = crypto.randomBytes(32).toString("hex");
     user.resetToken = resetToken;
     user.resetTokenExpire = Date.now() + 15 * 60 * 1000;
 
     await user.save();
 
-    // ✅ USE DEPLOYED FRONTEND URL
+    // ✅ USE FRONTEND URL (IMPORTANT)
     const resetLink = `https://fruit-vegetable-market.onrender.com/reset-password/${resetToken}`;
 
     const mailOptions = {
@@ -319,19 +320,17 @@ exports.forgotPassword = async (req, res) => {
       to: email,
       subject: "Password Reset",
       html: `
-        <p>This is from FreshCart (Online Fruits & Vegetables Store)</p>
+        <p>This is from FreshCart</p>
         <h3>Password Reset Request</h3>
         <p>Click below to reset your password:</p>
         <a href="${resetLink}">${resetLink}</a>
       `
     };
 
-    // ✅ SEND EMAIL (SAFE)
-    try {
-       transporter.sendMail(mailOptions);
-    } catch (err) {
-      console.log("Email failed:", err.message);
-    }
+    // ✅ NON-BLOCKING EMAIL
+    transporter.sendMail(mailOptions)
+      .then(() => console.log("Reset email sent"))
+      .catch(err => console.log("Email failed:", err.message));
 
     res.json({ message: "Reset link sent to your email" });
 
