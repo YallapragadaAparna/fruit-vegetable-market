@@ -5,7 +5,7 @@ import Fruits from "./components/Fruits/Fruits";
 import Vegetables from "./components/Vegetables/Vegetables";
 import Checkout from "./components/Checkout/Checkout";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
-import ResetPassword from "./components/ResetPassword/ResetPassword";
+//import ResetPassword from "./components/ResetPassword/ResetPassword";
 import OrderSuccessPage from "./components/OrderSuccessPage/OrderSuccessPage";
 import CartPage from "./components/CartPage/CartPage";
 import AdminOrders from "./components/admin/AdminOrders";
@@ -44,7 +44,7 @@ function App() {
 <Route path="/admin-orders" element={<AdminOrders />} />
 <Route path="/profile" element={<Profile />} />
 <Route path="/forgot-password" element={<ForgotPassword/>} />
-<Route path="/reset-password/:token" element={<ResetPassword />} />
+<Route path="/reset-password/:token" element={<MainContent />} />
           </Routes>
         </div>
 

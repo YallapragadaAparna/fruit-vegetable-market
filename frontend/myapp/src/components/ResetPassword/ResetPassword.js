@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate} from "react-router-dom";
 import api from "../../services/api";
 import "./ResetPassword.css";
 
-function ResetPassword({ token }) {
-  //const { token } = useParams();
-  const navigate = useNavigate();
-
+function ResetPassword({ token, onClose }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -20,8 +16,9 @@ function ResetPassword({ token }) {
 
       setMessage(res.data.message);
 
+      // ✅ Close modal + go home after success
       setTimeout(() => {
-        navigate("/");
+        onClose();
       }, 2000);
 
     } catch (err) {
@@ -30,23 +27,21 @@ function ResetPassword({ token }) {
   };
 
   return (
-    <div className="rp-container">
-      <form className="rp-form" onSubmit={handleSubmit}>
-        <h2>Reset Password</h2>
+    <form className="rp-form" onSubmit={handleSubmit}>
+      <h2>Reset Password</h2>
 
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <input
+        type="password"
+        placeholder="Enter new password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-        <button type="submit">Reset Password</button>
+      <button type="submit">Reset Password</button>
 
-        {message && <p>{message}</p>}
-      </form>
-    </div>
+      {message && <p>{message}</p>}
+    </form>
   );
 }
 

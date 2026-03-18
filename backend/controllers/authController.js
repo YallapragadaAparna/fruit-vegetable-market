@@ -24,6 +24,21 @@ exports.registerUser = async (req, res) => {
       // role: role || "user"
     role: role ? role : "user"   
     });
+      // ✅ EMAIL SETUP
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS // use app password
+      }
+    });
+        // ✅ SEND EMAIL
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER ,
+      to: email,
+      subject: "Registration Successful 🎉",
+      text: `Hello ${name},\n\nThis is from FreshCart(Online Fruits & Vegetables Store)\n\n Your registration was successful!\n\nThank you for joining us.`
+    });
 
     res.status(201).json({
       message: "User registered successfully",
