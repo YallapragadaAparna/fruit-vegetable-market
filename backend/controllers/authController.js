@@ -219,7 +219,7 @@ exports.registerUser = async (req, res) => {
 
     // ✅ SEND EMAIL (SAFE)
     try {
-      await transporter.sendMail({
+      transporter.sendMail({
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Registration Successful 🎉",
@@ -328,7 +328,7 @@ exports.forgotPassword = async (req, res) => {
 
     // ✅ SEND EMAIL (SAFE)
     try {
-      await transporter.sendMail(mailOptions);
+       transporter.sendMail(mailOptions);
     } catch (err) {
       console.log("Email failed:", err.message);
     }
