@@ -83,3 +83,65 @@ button:disabled {
     transform: rotate(360deg);
   }
 }
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+  .register-form {
+    padding: 25px 20px;
+  }
+
+  .register-form h2 {
+    font-size: 20px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .register-container {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .register-form {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .register-form h2 {
+    font-size: 18px;
+  }
+
+  .register-form input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .register-form button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-text {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+
+  .register-form {
+    max-width: 420px;
+    padding: 40px;
+  }
+}

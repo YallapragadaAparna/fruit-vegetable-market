@@ -100,7 +100,7 @@
   box-shadow:0 8px 16px rgba(0,0,0,0.15);
 }
 
-/* MOBILE */
+/* MOBILE *
 
 @media(max-width:700px){
 
@@ -118,4 +118,49 @@
   grid-column:span 1;
 }
 
+}*/
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .checkout-container {
+    align-items: flex-start; /* ✅ better scroll */
+    padding: 15px;
+  }
+
+  .checkout-card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .checkout-card h2 {
+    font-size: 24px;
+  }
+
+  .checkout-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .checkout-form textarea,
+  .checkout-form select,
+  .checkout-form button {
+    grid-column: span 1;
+  }
+
+  .place-order-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+  .checkout-card {
+    max-width: 750px;
+  }
 }

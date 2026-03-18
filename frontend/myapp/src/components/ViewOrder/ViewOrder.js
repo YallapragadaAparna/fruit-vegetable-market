@@ -54,6 +54,7 @@ function ViewOrder() {
         <h3>Ordered Items</h3>
 
         {order.items && order.items.length > 0 ? (
+         <div class="table-wrapper">
 
           <table className="items-table">
 
@@ -86,6 +87,7 @@ function ViewOrder() {
             </tbody>
 
           </table>
+          </div>
 
         ) : (
 
@@ -97,6 +99,7 @@ function ViewOrder() {
 
       </div>
 
+    
     </div>
 
   );

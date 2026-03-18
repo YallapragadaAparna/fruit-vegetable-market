@@ -107,3 +107,63 @@ margin-left:5px;
 .register-link:hover{
 text-decoration:underline;
 }
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+  .login-form {
+    padding: 25px 20px;
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  body {
+    align-items: flex-start; /* better scroll behavior */
+    padding-top: 40px;
+  }
+
+  .login-form {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .login-form h2 {
+    font-size: 18px;
+  }
+
+  .login-form input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .login-form button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .register-text {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+  .login-form {
+    max-width: 420px;
+    padding: 40px;
+  }
+}

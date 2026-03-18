@@ -3,21 +3,29 @@
   width: 100%;
   background-color:#2e7d32; /* green header */
   /* padding: 0px 30px; */
-  padding:0px 40px; 
+  padding:10px 20px; 
   display: flex;
   justify-content: space-between;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  position: sticky; /* stays on top when scrolling */
+  /* position: sticky; stays on top when scrolling */
   top: 0;
+    flex-wrap: nowrap; /* important for responsiveness */
+
     overflow:hidden;
   align-items: center;
   z-index: 10;
   color:white;
   
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 .navLinks{
   display:flex;
+    flex-wrap:nowrap;
   /* justify-content:flex-end; keeps menu on right side */
   align-items:center;
   gap:30px; /* space between Home Login Register Admin */
@@ -91,4 +99,70 @@ background:red;
 color:white;
 padding:5px 10px;
 cursor:pointer;
+}
+/*========================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .navLinks {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .page-content h1 {
+    font-size: 28px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .navbar {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .navLinks {
+    width: 100%;
+    /* flex-direction: column;*/
+    align-items: flex-start; 
+    gap: 10px;
+  }
+
+  .navLinks a,
+  .navLinks button {
+    font-size: 14px;
+  }
+
+  .page-content h1 {
+    font-size: 22px;
+    padding: 10px;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+}
+
+/* =========================
+   LARGE SCREENS
+========================= */
+
+@media (min-width: 1200px) {
+
+  .navbar {
+    padding: 12px 40px;
+  }
+
+  .page-content h1 {
+    font-size: 42px;
+  }
 }
