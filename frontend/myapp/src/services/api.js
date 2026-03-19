@@ -2,7 +2,7 @@ import axios from "axios"
 
 const api = axios.create({
 
-baseURL:"http://localhost:5000/api"
+baseURL:"https://fruit-vegetable-market-backend.onrender.com/api"
 });
 // ✅ Attach token to every request
 api.interceptors.request.use((config) => {
@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const IMAGE_URL = "http://localhost:5000";
+export const IMAGE_URL = "https://fruit-vegetable-market-backend.onrender.com";
 
 
 export default api
