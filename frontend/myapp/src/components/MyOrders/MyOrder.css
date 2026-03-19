@@ -1,0 +1,155 @@
+ /* PAGE BACKGROUND */
+
+.orders-container{
+  min-height:100vh;
+  padding:40px;
+  /* background:linear-gradient(135deg,#d4f1f4,#e8f8f5); */
+   background: linear-gradient(135deg, #eaf5ee, #f7fbf8);
+  font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+}
+
+/* PAGE TITLE */
+
+.orders-container h2{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:35px;
+  color:#2c3e50;
+  letter-spacing:1px;
+}
+
+/* GRID LAYOUT */
+
+.orders-grid{
+  display:grid;
+  /* grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
+  justify-content: center;  
+  gap:30px;
+}
+
+/* ORDER CARD */
+
+.order-card{
+  background:#ffffff;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.12);
+  border-left:6px solid #2e7d32;
+  text-align:center;
+  transition:all 0.3s ease;
+}
+
+/* HOVER EFFECT */
+
+.order-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 28px rgba(0,0,0,0.18);
+}
+
+/* CARD TEXT */
+
+.order-card p{
+  margin:6px 0;
+  font-size:15px;
+  color:#030303;
+}
+
+/* STATUS SECTION */
+
+.status-box{
+  margin:12px 0;
+}
+
+/* STATUS SELECT */
+
+.order-card select{
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  margin-left:6px;
+  background:#f5f5f5;
+  font-size:14px;
+}
+
+/* VIEW BUTTON */
+
+.view-btn{
+  margin-top:15px;
+  padding:8px 20px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  transition:0.3s;
+}
+
+/* HOVER */
+
+.view-btn:hover{
+  background:#27ae60;
+  transform:translateY(-2px);
+}
+
+/* NO ORDERS TEXT */
+
+.no-orders{
+  text-align:center;
+  font-size:18px;
+  color:#555;
+}
+.status-box{
+  margin:10px 0;
+}
+
+.order-status{
+  margin-left:8px;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+}
+
+/* Pending */
+
+.order-status.pending{
+  background:#fff3cd;
+  color:#856404;
+}
+
+/* Accepted */
+
+.order-status.accepted{
+  background:#d4edda;
+  color:#155724;
+}
+
+/* Declined */
+
+.order-status.declined{
+  background:#f8d7da;
+  color:#721c24;
+}
+
+/* DELIVERED */
+
+.order-status.delivered{
+  background:#d1ecf1;
+  color:#0c5460;
+}
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .orders-container{
+    padding:20px;
+  }
+
+  .orders-grid{
+    grid-template-columns:1fr;
+  }
+
+}

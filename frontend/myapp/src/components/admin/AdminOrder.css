@@ -1,0 +1,146 @@
+ /* PAGE BACKGROUND */
+ 
+.admin-orders-container {
+  min-height: 100vh;
+  padding: 40px;
+  /* background: linear-gradient(135deg, #d4f1f4, #e8f8f5); */
+   background: linear-gradient(135deg, #eaf5ee, #f7fbf8);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* PAGE TITLE */
+.admin-orders-container h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #2c3e50;
+  letter-spacing: 1px;
+}
+
+/* GRID WRAPPER */
+.orders-grid {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
+  justify-content: center;  
+  gap: 30px;
+}
+
+/* ORDER CARD */
+.order-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border-left: 6px solid #2e7d32;
+  text-align: center;
+   overflow: hidden; 
+}
+
+/* CARD HOVER EFFECT */
+.order-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* ORDER TITLE */
+.order-card h3 {
+  font-size: 15px;
+  color: #34495e;
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+
+/* TEXT DETAILS */
+.order-card p {
+  font-size: 15px;
+  margin: 6px 0;
+  color: #090909;
+}
+
+/* STATUS DROPDOWN */
+.order-card select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 8px;
+  outline: none;
+}
+
+/* UPDATE BUTTON */
+.update-status-btn {
+  margin-left: 10px;
+  padding: 7px 16px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.update-status-btn:hover {
+  background: #1e874b;
+}
+
+/* VIEW ITEMS BUTTON */
+.view-items-btn {
+  margin-top: 15px;
+  padding: 9px 20px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.view-items-btn:hover {
+  background: #1f6391;
+}
+
+/* ITEMS SECTION */
+.order-items-section {
+  margin-top: 18px;
+  background: #f7f9fa;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+/* TABLE STYLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+table th {
+  background: #3498db;
+  color: white;
+  padding: 10px;
+}
+
+table td {
+  border: 1px solid #e0e0e0;
+  padding: 9px;
+  text-align: center;
+}
+
+table tr:nth-child(even) {
+  background: #f4f6f8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .admin-orders-container {
+    padding: 20px;
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+}

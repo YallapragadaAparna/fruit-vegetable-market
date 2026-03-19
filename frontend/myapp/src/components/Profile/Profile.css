@@ -1,0 +1,167 @@
+ /* 🌿 PAGE BACKGROUND */
+.profile-container {
+  min-height: 100vh;
+  /* background: linear-gradient(to right, #eef2f3, #dfe9f3); */
+   background: linear-gradient(135deg, #eaf5ee, #f7fbf8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 📦 CARD */
+.profile-card {
+  background: #ffffff;
+  width: 380px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 🖼️ AVATAR SECTION */
+.avatar-wrapper {
+  margin-bottom: 20px;
+}
+
+/* IMAGE */
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4caf50;
+  margin-bottom: 10px;
+}
+
+/* DEFAULT AVATAR */
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #4caf50;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 10px;
+}
+
+/* BUTTON AREA */
+.photo-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* UPLOAD BUTTON */
+.upload-btn {
+  background: #4caf50;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-btn:hover {
+  background: #43a047;
+}
+
+/* REMOVE BUTTON */
+.delete-photo {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.delete-photo:hover {
+  background: #c62828;
+}
+
+/* 📋 FIELD BLOCK */
+.profile-field {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+/* LABEL */
+.profile-field label {
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TEXT VALUE */
+.profile-field p {
+  margin: 5px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* INPUT */
+.profile-field input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.profile-field input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.3);
+}
+
+/* ✏️ EDIT ICON */
+.edit-icon {
+  cursor: pointer;
+  font-size: 14px;
+  color: #4caf50;
+  transition: 0.2s;
+}
+
+.edit-icon:hover {
+  transform: scale(1.2);
+}
+
+/* 💾 SAVE BUTTON */
+.save-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+  background: #4caf50;
+  color: white;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background: #388e3c;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 480px) {
+  .profile-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
