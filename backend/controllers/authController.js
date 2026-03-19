@@ -121,7 +121,7 @@ exports.forgotPassword = async (req, res) => {
 
     await user.save();
 
-    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetLink = `https://fruit-vegetable-market.onrender.com/reset-password/${resetToken}`;
   
 
     // // ✅ EMAIL
