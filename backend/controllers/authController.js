@@ -146,7 +146,7 @@ exports.forgotPassword = async (req, res) => {
     };
 
     //await transporter.sendMail(mailOptions);
-         //await sgMail.send(msg);
+         await sgMail.send(msg);
     res.json({ message: "Reset link sent to your email" });
 
   } catch (err) {
