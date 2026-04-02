@@ -1,5 +1,5 @@
-# fruit-vegetable-market
-🥕 Fresh Cart – Fruits & Vegetables Web Application
+## (In the repository the video is uploaded if you want to see the video download that then you can saw the video)
+# 🥕 Fresh Cart – Fruits & Vegetables Web Application
 ##### 📌 Project Overview
 
 Fresh Cart is a web-based application designed to make buying fresh fruits and vegetables easy and convenient. The platform allows users to browse products, add items to the cart, and place orders in a simple and user-friendly way.
