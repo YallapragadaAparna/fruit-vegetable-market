@@ -1,4 +1,6 @@
-## (In the repository the video is uploaded if you want to see the video download that then you can saw the video)
+## Below is the video link of project 
+https://drive.google.com/file/d/1E3BnAOX_w8Cd2jEpW0TCgAGlYuzB5yBo/view?usp=sharing
+
 # 🥕 Fresh Cart – Fruits & Vegetables Web Application
 ##### 📌 Project Overview
 
