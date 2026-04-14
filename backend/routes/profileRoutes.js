@@ -17,7 +17,7 @@ router.get("/", authMiddleware, getProfile);
 router.post(
   "/update",
   authMiddleware,
-  fileupload.single("photo"),
+  fileupload.single("image"),
   updateProfile
 );
 

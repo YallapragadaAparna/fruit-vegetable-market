@@ -8,10 +8,10 @@ exports.addProducts = async (req, res) => {
 
     const { name, price, category, stock } = req.body;
 
-    const image = req.file
-      ? "/uploads/" + req.file.filename
-      : "";
-
+    // const image = req.file
+    //   ? "/uploads/" + req.file.filename
+    //   : "";
+const image = req.file ? req.file.path : "";
     const product = new Product({
       name,
       price,
@@ -54,16 +54,16 @@ exports.deleteProducts = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // delete image from uploads folder
-    if (product.image) {
+    // // delete image from uploads folder
+    // if (product.image) {
 
-      const imagePath = path.join(__dirname, "..", product.image);
+    //   const imagePath = path.join(__dirname, "..", product.image);
 
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
-      }
+    //   if (fs.existsSync(imagePath)) {
+    //     fs.unlinkSync(imagePath);
+    //   }
 
-    }
+    // }
 
     await Product.findByIdAndDelete(req.params.id);
 
@@ -104,7 +104,8 @@ exports.updateProduct = async (req, res) => {
         }
       }
 
-      product.image = "/uploads/" + req.file.filename;
+      //product.image = "/uploads/" + req.file.filename;
+      product.image = req.file.path;
     }
 
     const updatedProduct = await product.save();

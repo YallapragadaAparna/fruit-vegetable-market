@@ -35,7 +35,8 @@ exports.updateProfile = async (req, res) => {
 
     // ✅ FILE UPLOAD
     if (req.file) {
-      updateData.photo = `/uploads/${req.file.filename}`;
+     // updateData.photo = `/uploads/${req.file.filename}`;
+    updateData.photo = req.file.path;
     }
 
     const updatedUser = await User.findByIdAndUpdate(

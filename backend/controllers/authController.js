@@ -2,10 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-//const nodemailer = require("nodemailer");
-// ✅ SENDGRID SETUP
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const nodemailer = require("nodemailer");
 
 // REGISTER USER
 exports.registerUser = async (req, res) => {
@@ -28,23 +25,23 @@ exports.registerUser = async (req, res) => {
       // role: role || "user"
     role: role ? role : "user"   
     });
-      // ✅ EMAIL SETUP
-    // const transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: process.env.EMAIL_USER,
-    //     pass: process.env.EMAIL_PASS // use app password
-    //   }
-    // });
+      //✅ EMAIL SETUP
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS// use app password
+      }
+    });
         // ✅ SEND EMAIL
-    //await transporter.sendMail({
-      const msg = {
-      from: process.env.SENDGRID_SENDER,
+  await transporter.sendMail({
+      //const msg = {
+      from: process.env.SMTP_USER,
       to: email,
       subject: "Registration Successful 🎉",
       text: `Hello ${name},\n\nThis is from FreshCart(Online Fruits & Vegetables Store)\n\n Your registration was successful!\n\nThank you for joining us.`
-    };
-      await sgMail.send(msg);
+    });
+      //await sgMail.send(msg);
 
     res.status(201).json({
       message: "User registered successfully",
@@ -124,17 +121,17 @@ exports.forgotPassword = async (req, res) => {
     const resetLink = `https://fruit-vegetable-market.onrender.com/reset-password/${resetToken}`;
   
 
-    // // ✅ EMAIL
-    // const transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: process.env.EMAIL_USER,
-    //     pass: process.env.EMAIL_PASS
-    //   }
-    // });
+    // ✅ EMAIL
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+      }
+    });
 
-    const msg = {
-      from: process.env.SENDGRID_SENDER,
+    const mailOptions= {
+      from: process.env.SMTP_USER,
       to: email,
       subject: "Password Reset",
       html: `
@@ -145,8 +142,8 @@ exports.forgotPassword = async (req, res) => {
       `
     };
 
-    //await transporter.sendMail(mailOptions);
-         await sgMail.send(msg);
+    await transporter.sendMail(mailOptions);
+         //await sgMail.send(msg);
     res.json({ message: "Reset link sent to your email" });
 
   } catch (err) {
