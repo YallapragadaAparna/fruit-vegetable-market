@@ -573,7 +573,7 @@ exports.forgotPassword = async (req, res) => {
     await sendEmail(
       email,
       "Password Reset",
-      "",
+      "Click the link below to reset your password",
       `
       <p>This is from FreshCart</p>
       <h3>Password Reset Request</h3>
