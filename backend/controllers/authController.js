@@ -568,7 +568,7 @@ exports.forgotPassword = async (req, res) => {
     user.resetTokenExpire = Date.now() + 15 * 60 * 1000;
     await user.save();
 
-    const resetLink = `https://fruit-vegetable-market1.onrender.com/reset-password/${resetToken}`;
+    const resetLink = `https://fruit-vegetable-market-frontend1.onrender.com/reset-password/${resetToken}`;
 
     await sendEmail(
       email,
