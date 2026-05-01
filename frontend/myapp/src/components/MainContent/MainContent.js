@@ -195,19 +195,18 @@ function MainContent() {
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  // 🔥 Detect routes
-  const path = location.pathname;
-
-  const isLogin = path === "/login";
-  const isRegister = path === "/register";
-  const isForgot = path === "/forgot-password";
-  const isReset = path.startsWith("/reset-password/");
-
-  const resetToken = isReset ? path.split("/")[2] : "";
+  // 🔥 Detect reset route instantly (FIX)
+  const isResetRoute = location.pathname.startsWith("/reset-password/");
+  const resetToken = isResetRoute
+    ? location.pathname.split("/")[2]
+    : "";
 
   // 🔄 Background slider
   useEffect(() => {
@@ -223,13 +222,18 @@ function MainContent() {
       {/* ✅ Navbar */}
       <div className="navbar">
         <div className="navLinks">
-          <h3>Fresh Cart (Fruits & Vegetables)</h3>
+          <h3>Fresh Cart(Fruits & Vegetables)</h3>
 
           <a href="/">Home</a>
 
-          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => setShowLogin(true)}>Login</button>
 
-          <button onClick={() => navigate("/register")}>
+          <button
+            onClick={() => {
+              setShowRegister(true);
+              setShowLogin(false);
+            }}
+          >
             Register
           </button>
         </div>
@@ -240,18 +244,27 @@ function MainContent() {
         className="page-content"
         style={{ backgroundImage: `url(${images[currentImage]})` }}
       >
-        <h1>Fresh Cart (Fruits & Vegetables)</h1>
+        <h1>Fresh Cart(Fruits & Vegetables)</h1>
       </div>
 
       {/* 🔐 Login Modal */}
-      {isLogin && (
+      {showLogin && (
         <div className="overlay">
           <div className="modal">
             <Login
-              openRegister={() => navigate("/register")}
-              openForgot={() => navigate("/forgot-password")}
+              openRegister={() => {
+                setShowLogin(false);
+                setShowRegister(true);
+              }}
+              openForgot={() => {
+                setShowLogin(false);
+                setShowForgot(true);
+              }}
             />
-            <button className="close-btn" onClick={() => navigate("/")}>
+            <button
+              className="close-btn"
+              onClick={() => setShowLogin(false)}
+            >
               X
             </button>
           </div>
@@ -259,11 +272,19 @@ function MainContent() {
       )}
 
       {/* 📝 Register Modal */}
-      {isRegister && (
+      {showRegister && (
         <div className="overlay">
           <div className="modal">
-            <Register openLogin={() => navigate("/login")} />
-            <button className="close-btn" onClick={() => navigate("/")}>
+            <Register
+              openLogin={() => {
+                setShowRegister(false);
+                setShowLogin(true);
+              }}
+            />
+            <button
+              className="close-btn"
+              onClick={() => setShowRegister(false)}
+            >
               X
             </button>
           </div>
@@ -271,26 +292,42 @@ function MainContent() {
       )}
 
       {/* 🔑 Forgot Password Modal */}
-      {isForgot && (
+      {showForgot && (
         <div className="overlay">
           <div className="modal">
-            <ForgotPassword openLogin={() => navigate("/login")} />
-            <button className="close-btn" onClick={() => navigate("/")}>
+            <ForgotPassword
+              openLogin={() => {
+                setShowForgot(false);
+                setShowLogin(true);
+              }}
+            />
+            <button
+              className="close-btn"
+              onClick={() => setShowForgot(false)}
+            >
               X
             </button>
           </div>
         </div>
       )}
 
-      {/* 🔄 Reset Password Modal */}
-      {isReset && (
+      {/* 🔄 Reset Password Modal (FIXED) */}
+      {isResetRoute && (
         <div className="overlay">
           <div className="modal">
             <ResetPassword
               token={resetToken}
-              onClose={() => navigate("/")}
+              onClose={() => {
+                navigate("/");
+              }}
             />
-            <button className="close-btn" onClick={() => navigate("/")}>
+
+            <button
+              className="close-btn"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               X
             </button>
           </div>
