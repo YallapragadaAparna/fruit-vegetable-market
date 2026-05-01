@@ -309,7 +309,7 @@ function Profile() {
     loadProfile();
   }, []);
 
-  // ✅ LOAD PROFILE
+  // ✅ LOAD PROFILE FROM BACKEND
   const loadProfile = async () => {
     try {
       const res = await api.get("/profile", {
@@ -332,7 +332,7 @@ function Profile() {
         data.dob ? new Date(data.dob).toISOString().split("T")[0] : ""
       );
 
-      // ✅ Always store full URL from backend
+      // ✅ IMPORTANT: store full Cloudinary URL
       setPhoto(data.photo || "");
 
     } catch (err) {
@@ -340,7 +340,7 @@ function Profile() {
     }
   };
 
-  // ✅ PHOTO PREVIEW
+  // ✅ PREVIEW IMAGE (TEMPORARY)
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
 
@@ -370,11 +370,12 @@ function Profile() {
         }
       });
 
-      // ✅ IMPORTANT: always use backend URL (not blob)
+      // ✅ ALWAYS use backend URL (NOT blob)
       const updatedPhoto = res.data.photo;
 
       setPhoto(updatedPhoto);
 
+      // ✅ SAVE IN LOCALSTORAGE FOR DASHBOARD
       const updatedUser = {
         ...user,
         profileImage: updatedPhoto
@@ -382,7 +383,7 @@ function Profile() {
 
       localStorage.setItem("user", JSON.stringify(updatedUser));
 
-      // 🔥 update dashboard instantly
+      // 🔥 refresh dashboard instantly
       window.dispatchEvent(new Event("userUpdated"));
 
       alert("Profile Updated ✅");
@@ -433,7 +434,7 @@ function Profile() {
         <div className="avatar-wrapper">
           {photo ? (
             <img
-              src={photo}   // ✅ FIXED (no IMAGE_URL)
+              src={photo}   // ✅ FIXED
               className="profile-img"
               alt="profile"
             />
