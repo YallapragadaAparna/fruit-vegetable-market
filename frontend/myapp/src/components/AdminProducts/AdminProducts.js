@@ -158,10 +158,14 @@ View Orders
 
           <div key={product._id} className="product-card">
 
-            <img
-              src={`${IMAGE_URL}${product.image}`}
-              alt={product.name}
-            />
+            // <img
+            //   src={`${IMAGE_URL}${product.image}`}
+            //   alt={product.name}
+            // />
+          <img
+  src={product.image}
+  alt={product.name}
+/>
 
             <h3>{product.name}</h3>
 
