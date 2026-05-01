@@ -124,7 +124,6 @@ exports.addProducts = async (req, res) => {
   try {
     const { name, price, category, stock } = req.body;
 
-    // ✅ Cloudinary URL directly from multer-storage-cloudinary
     const image = req.file ? req.file.path : "";
 
     const product = new Product({
@@ -139,17 +138,34 @@ exports.addProducts = async (req, res) => {
     res.json(savedProduct);
 
   } catch (error) {
-    console.log("ADD PRODUCT ERROR:", error);
+    console.log("ADD ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
 
 
-// ================= GET PRODUCTS =================
+// ================= GET ALL PRODUCTS =================
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+// ================= GET SINGLE PRODUCT (FIX 404) =================
+exports.getSingleProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json(product);
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -166,8 +182,8 @@ exports.deleteProducts = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // ✅ Delete image from Cloudinary (optional but recommended)
-    if (product.image) {
+    // ✅ delete from cloudinary
+    if (product.image && product.image.includes("res.cloudinary.com")) {
       const publicId = product.image.split("/").pop().split(".")[0];
       await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
     }
@@ -194,22 +210,19 @@ exports.updateProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // ✅ Update fields
     product.name = name || product.name;
     product.price = price || product.price;
     product.category = category || product.category;
     product.stock = stock || product.stock;
 
-    // ✅ Update image if new file uploaded
     if (req.file) {
 
-      // delete old image from Cloudinary
-      if (product.image) {
+      // delete old cloudinary image
+      if (product.image && product.image.includes("res.cloudinary.com")) {
         const publicId = product.image.split("/").pop().split(".")[0];
         await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
       }
 
-      // new Cloudinary URL
       product.image = req.file.path;
     }
 
