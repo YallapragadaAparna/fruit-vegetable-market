@@ -91,7 +91,7 @@ exports.getProfile = async (req, res) => {
     res.json(user);
 
   } catch (err) {
-    console.log(err);
+    console.log("GET PROFILE ERROR:", err);
     res.status(500).json({ message: "Error fetching profile" });
   }
 };
@@ -100,46 +100,50 @@ exports.getProfile = async (req, res) => {
 // ================= UPDATE PROFILE =================
 exports.updateProfile = async (req, res) => {
   try {
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
     const { phone, address, city, dob } = req.body;
 
     const updateData = {};
 
-    // allow empty values
     if (phone !== undefined) updateData.phone = phone;
     if (address !== undefined) updateData.address = address;
     if (city !== undefined) updateData.city = city;
     if (dob !== undefined) updateData.dob = dob;
 
-    // ✅ HANDLE IMAGE UPDATE
+    // ✅ HANDLE IMAGE
     if (req.file) {
       const user = await User.findById(req.user.id);
 
-      // delete old image from Cloudinary
-      if (user.photo) {
-        const publicId = user.photo.split("/").pop().split(".")[0];
-        await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
+      // 🔥 SAFE DELETE (only if valid)
+      if (user && user.photo && user.photo.includes("cloudinary")) {
+        try {
+          const parts = user.photo.split("/");
+          const fileName = parts[parts.length - 1];
+          const publicId = "freshcart_uploads/" + fileName.split(".")[0];
+
+          await cloudinary.uploader.destroy(publicId);
+        } catch (err) {
+          console.log("Cloudinary delete error:", err.message);
+        }
       }
 
-      // save new image URL
+      // ✅ SAVE NEW IMAGE
       updateData.photo = req.file.path;
     }
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       { $set: updateData },
-      {
-        new: true,
-        runValidators: true,
-      }
-    )
-      .select("-password")
-      .lean();
+      { new: true }
+    ).select("-password");
 
     res.json(updatedUser);
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Update failed" });
+    console.log("🔥 UPDATE PROFILE ERROR:", err);
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -149,10 +153,16 @@ exports.deletePhoto = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
-    // delete from Cloudinary
-    if (user.photo) {
-      const publicId = user.photo.split("/").pop().split(".")[0];
-      await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
+    if (user.photo && user.photo.includes("cloudinary")) {
+      try {
+        const parts = user.photo.split("/");
+        const fileName = parts[parts.length - 1];
+        const publicId = "freshcart_uploads/" + fileName.split(".")[0];
+
+        await cloudinary.uploader.destroy(publicId);
+      } catch (err) {
+        console.log("Cloudinary delete error:", err.message);
+      }
     }
 
     await User.findByIdAndUpdate(
@@ -164,7 +174,7 @@ exports.deletePhoto = async (req, res) => {
     res.json({ message: "Photo removed" });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Delete failed" });
+    console.log("DELETE PHOTO ERROR:", err);
+    res.status(500).json({ message: err.message });
   }
 };
