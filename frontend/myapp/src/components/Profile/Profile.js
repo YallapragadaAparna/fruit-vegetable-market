@@ -282,7 +282,7 @@
 
 // export default Profile;
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
+import api, { IMAGE_URL } from "../../services/api";
 import "./Profile.css";
 
 function Profile() {
@@ -300,16 +300,13 @@ function Profile() {
   const [photo, setPhoto] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
 
-  const [editPhone, setEditPhone] = useState(false);
-  const [editAddress, setEditAddress] = useState(false);
-  const [editCity, setEditCity] = useState(false);
-  const [editDob, setEditDob] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadProfile();
   }, []);
 
-  // ✅ LOAD PROFILE FROM BACKEND
+  // ✅ LOAD PROFILE FROM BACKEND (ALWAYS)
   const loadProfile = async () => {
     try {
       const res = await api.get("/profile", {
@@ -332,15 +329,18 @@ function Profile() {
         data.dob ? new Date(data.dob).toISOString().split("T")[0] : ""
       );
 
-      // ✅ IMPORTANT: store full Cloudinary URL
+      // ✅ IMPORTANT: always use backend photo
       setPhoto(data.photo || "");
+
+      // ✅ update localStorage also
+      localStorage.setItem("user", JSON.stringify(data));
 
     } catch (err) {
       console.log(err);
     }
   };
 
-  // ✅ PREVIEW IMAGE (TEMPORARY)
+  // ✅ PREVIEW IMAGE
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
 
@@ -353,6 +353,8 @@ function Profile() {
   // ✅ SAVE PROFILE
   const handleSave = async () => {
     try {
+      setLoading(true);
+
       const formData = new FormData();
 
       formData.append("phone", phone);
@@ -361,7 +363,7 @@ function Profile() {
       formData.append("dob", dob);
 
       if (photoFile) {
-        formData.append("photo", photoFile);
+        formData.append("photo", photoFile); // ✅ correct field
       }
 
       const res = await api.post("/profile/update", formData, {
@@ -370,36 +372,27 @@ function Profile() {
         }
       });
 
-      // ✅ ALWAYS use backend URL (NOT blob)
-      const updatedPhoto = res.data.photo;
+      // ✅ update UI with backend response
+      setPhoto(res.data.photo || "");
 
-      setPhoto(updatedPhoto);
-
-      // ✅ SAVE IN LOCALSTORAGE FOR DASHBOARD
-      const updatedUser = {
-        ...user,
-        profileImage: updatedPhoto
-      };
-
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-
-      // 🔥 refresh dashboard instantly
-      window.dispatchEvent(new Event("userUpdated"));
+      // ✅ store updated user
+      localStorage.setItem("user", JSON.stringify(res.data));
 
       alert("Profile Updated ✅");
 
-      setEditPhone(false);
-      setEditAddress(false);
-      setEditCity(false);
-      setEditDob(false);
+      setPhotoFile(null);
+
+      loadProfile();
 
     } catch (err) {
       console.log(err);
       alert("Error updating profile");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ✅ DELETE PHOTO
+  // ✅ DELETE PHOTO (ONLY HERE IT SHOULD REMOVE)
   const handleDeletePhoto = async () => {
     try {
       await api.delete("/profile/photo", {
@@ -411,15 +404,12 @@ function Profile() {
       setPhoto("");
       setPhotoFile(null);
 
-      const updatedUser = {
-        ...user,
-        profileImage: ""
-      };
-
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-
-      const fileInput = document.getElementById("fileUpload");
-      if (fileInput) fileInput.value = "";
+      // update localStorage
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser) {
+        storedUser.photo = "";
+        localStorage.setItem("user", JSON.stringify(storedUser));
+      }
 
     } catch (err) {
       console.log(err);
@@ -434,7 +424,7 @@ function Profile() {
         <div className="avatar-wrapper">
           {photo ? (
             <img
-              src={photo}   // ✅ FIXED
+              src={photo.startsWith("blob") ? photo : photo}
               className="profile-img"
               alt="profile"
             />
@@ -444,99 +434,49 @@ function Profile() {
             </div>
           )}
 
-          <div className="photo-actions">
+          <input
+            type="file"
+            onChange={handlePhotoUpload}
+          />
 
-            <input
-              type="file"
-              id="fileUpload"
-              accept="image/*"
-              onChange={handlePhotoUpload}
-              style={{ display: "none" }}
-            />
-
-            <label htmlFor="fileUpload" className="upload-btn">
-              Upload Photo
-            </label>
-
-            {photo && (
-              <button className="delete-photo" onClick={handleDeletePhoto}>
-                Remove
-              </button>
-            )}
-
-          </div>
-        </div>
-
-        {/* NAME */}
-        <div className="profile-field">
-          <label>Name</label>
-          <p>{user.name}</p>
-        </div>
-
-        {/* EMAIL */}
-        <div className="profile-field">
-          <label>Email</label>
-          <p>{user.email}</p>
-        </div>
-
-        {/* PHONE */}
-        <div className="profile-field">
-          <label>
-            Phone
-            <span className="edit-icon" onClick={() => setEditPhone(!editPhone)}>✏️</span>
-          </label>
-
-          {editPhone ? (
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} />
-          ) : (
-            <p>{phone || "Not added"}</p>
+          {photo && (
+            <button onClick={handleDeletePhoto}>
+              Remove
+            </button>
           )}
+
         </div>
 
-        {/* ADDRESS */}
-        <div className="profile-field">
-          <label>
-            Address
-            <span className="edit-icon" onClick={() => setEditAddress(!editAddress)}>✏️</span>
-          </label>
+        {/* DETAILS */}
+        <p>Name: {user.name}</p>
+        <p>Email: {user.email}</p>
 
-          {editAddress ? (
-            <input value={address} onChange={(e) => setAddress(e.target.value)} />
-          ) : (
-            <p>{address || "Not added"}</p>
-          )}
-        </div>
+        <input
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Phone"
+        />
 
-        {/* CITY */}
-        <div className="profile-field">
-          <label>
-            City
-            <span className="edit-icon" onClick={() => setEditCity(!editCity)}>✏️</span>
-          </label>
+        <input
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Address"
+        />
 
-          {editCity ? (
-            <input value={city} onChange={(e) => setCity(e.target.value)} />
-          ) : (
-            <p>{city || "Not added"}</p>
-          )}
-        </div>
+        <input
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="City"
+        />
 
-        {/* DOB */}
-        <div className="profile-field">
-          <label>
-            Date of Birth
-            <span className="edit-icon" onClick={() => setEditDob(!editDob)}>✏️</span>
-          </label>
+        <input
+          type="date"
+          value={dob}
+          onChange={(e) => setDob(e.target.value)}
+        />
 
-          {editDob ? (
-            <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} />
-          ) : (
-            <p>{dob || "Not added"}</p>
-          )}
-        </div>
-
-        <button className="save-btn" onClick={handleSave}>
-          Save Changes
+        <button onClick={handleSave}>
+          {loading ? "Saving..." : "Save"}
         </button>
 
       </div>
