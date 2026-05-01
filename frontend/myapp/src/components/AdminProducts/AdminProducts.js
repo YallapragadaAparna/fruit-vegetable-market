@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import api, { IMAGE_URL } from "../../services/api";
+import api from "../../services/api";
 import "./AdminProducts.css";
 
 function AdminProducts() {
