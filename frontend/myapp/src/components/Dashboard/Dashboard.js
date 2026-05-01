@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api, { IMAGE_URL } from "../../services/api";
+import api from "../../services/api";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -223,11 +223,12 @@ function Dashboard() {
 
                 <div key={product._id} className="product-card">
 
-                  <img
-                    src={`${IMAGE_URL}${product.image}`}
-                    alt={product.name}
-                    className="product-image"
-                  />
+                  // <img
+                  //   src={`${IMAGE_URL}${product.image}`}
+                  //   alt={product.name}
+                  //   className="product-image"
+                  // />
+                <img src={product.image} alt={product.name} />
 
                   <h3>{product.name}</h3>
                   <p>Price: ₹{price}</p>
