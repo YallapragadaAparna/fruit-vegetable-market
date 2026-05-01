@@ -118,22 +118,14 @@
 // };
 const Product = require("../models/Product");
 const cloudinary = require("../config/cloudinary");
-const fs = require("fs");
 
 // ================= ADD PRODUCT =================
 exports.addProducts = async (req, res) => {
   try {
     const { name, price, category, stock } = req.body;
 
-    let image = "";
-
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      image = result.secure_url; // ✅ store Cloudinary URL
-
-      // delete temp file
-      fs.unlinkSync(req.file.path);
-    }
+    // ✅ Cloudinary URL directly from multer-storage-cloudinary
+    const image = req.file ? req.file.path : "";
 
     const product = new Product({
       name,
@@ -152,6 +144,7 @@ exports.addProducts = async (req, res) => {
   }
 };
 
+
 // ================= GET PRODUCTS =================
 exports.getProducts = async (req, res) => {
   try {
@@ -163,6 +156,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+
 // ================= DELETE PRODUCT =================
 exports.deleteProducts = async (req, res) => {
   try {
@@ -172,10 +166,10 @@ exports.deleteProducts = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // delete image from cloudinary
+    // ✅ Delete image from Cloudinary (optional but recommended)
     if (product.image) {
       const publicId = product.image.split("/").pop().split(".")[0];
-      await cloudinary.uploader.destroy(publicId);
+      await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
     }
 
     await Product.findByIdAndDelete(req.params.id);
@@ -183,9 +177,11 @@ exports.deleteProducts = async (req, res) => {
     res.json({ message: "Product deleted successfully" });
 
   } catch (error) {
+    console.log("DELETE ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // ================= UPDATE PRODUCT =================
 exports.updateProduct = async (req, res) => {
@@ -198,24 +194,23 @@ exports.updateProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // update fields
+    // ✅ Update fields
     product.name = name || product.name;
     product.price = price || product.price;
     product.category = category || product.category;
     product.stock = stock || product.stock;
 
-    // update image
+    // ✅ Update image if new file uploaded
     if (req.file) {
-      // delete old image
+
+      // delete old image from Cloudinary
       if (product.image) {
         const publicId = product.image.split("/").pop().split(".")[0];
-        await cloudinary.uploader.destroy(publicId);
+        await cloudinary.uploader.destroy("freshcart_uploads/" + publicId);
       }
 
-      const result = await cloudinary.uploader.upload(req.file.path);
-      product.image = result.secure_url;
-
-      fs.unlinkSync(req.file.path);
+      // new Cloudinary URL
+      product.image = req.file.path;
     }
 
     const updatedProduct = await product.save();
